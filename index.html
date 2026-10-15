@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aprenda a Fazer Bons Prompts</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3b4cca">
+<link rel="apple-touch-icon" href="imagens/icon-192.png">
+<style>
+  :root {
+    --bg: #f4f6fb; --card: #ffffff; --text: #1d2433; --muted: #5b6577;
+    --brand: #3b4cca; --brand-dark: #2c3a9e;
+    --good: #1b7a3d; --good-bg: #e6f6ec; --bad: #b3261e; --bad-bg: #fdeceb;
+    --warn: #8a5a00; --warn-bg: #fff4dc; --border: #d9deea;
+    --fs: 18px;
+  }
+  body.contrast {
+    --bg: #000; --card: #111; --text: #fff; --muted: #ddd; --brand: #ffd400; --brand-dark: #ffea70;
+    --good: #5dff8f; --good-bg: #002a10; --bad: #ff8a80; --bad-bg: #2d0000;
+    --warn: #ffd166; --warn-bg: #2d2000; --border: #fff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+         font-size: var(--fs); line-height: 1.55; background: var(--bg); color: var(--text); }
+  header { background: var(--brand); color: #fff; padding: 14px 18px; display: flex; flex-wrap: wrap;
+           align-items: center; justify-content: space-between; gap: 10px; }
+  body.contrast header { color: #000; }
+  header h1 { margin: 0; font-size: 1.15em; }
+  .tools button { background: rgba(255,255,255,.18); color: inherit; border: 1px solid currentColor;
+                  border-radius: 8px; padding: 6px 10px; font-size: .85em; cursor: pointer; margin-left: 4px; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; background: var(--card);
+        border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; }
+  nav button { background: transparent; border: 2px solid transparent; color: var(--text);
+               padding: 8px 12px; border-radius: 10px; font-size: .9em; cursor: pointer; }
+  nav button[aria-current="page"] { background: var(--brand); color: #fff; }
+  body.contrast nav button[aria-current="page"] { color: #000; }
+  main { max-width: 820px; margin: 0 auto; padding: 18px 14px 60px; }
+  section { display: none; }
+  section.active { display: block; }
+  h2 { margin-top: 0; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+  .hero { text-align: center; padding: 28px 10px; }
+  .hero p { color: var(--muted); }
+  .btn { background: var(--brand); color: #fff; border: 0; border-radius: 10px; padding: 12px 20px;
+         font-size: 1em; font-weight: 600; cursor: pointer; margin: 4px; }
+  body.contrast .btn { color: #000; }
+  .btn.secondary { background: transparent; color: var(--brand); border: 2px solid var(--brand); }
+  .btn:hover { background: var(--brand-dark); color: #fff; }
+  body.contrast .btn:hover { color: #000; }
+  :focus-visible { outline: 3px solid #ff9800; outline-offset: 2px; }
+  .prompt { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9em; background: var(--bg);
+            border-left: 4px solid var(--border); padding: 10px 12px; border-radius: 6px; margin: 8px 0; white-space: pre-wrap; }
+  .tag { display: inline-block; font-weight: 700; font-size: .8em; padding: 3px 10px; border-radius: 99px; }
+  .tag.good { background: var(--good-bg); color: var(--good); border: 1px solid var(--good); }
+  .tag.bad { background: var(--bad-bg); color: var(--bad); border: 1px solid var(--bad); }
+  .item.good { border-left: 6px solid var(--good); }
+  .item.bad { border-left: 6px solid var(--bad); }
+  .why { color: var(--muted); font-size: .9em; margin: 4px 0 0; }
+  textarea { width: 100%; min-height: 130px; font: inherit; padding: 12px; border-radius: 10px;
+             border: 2px solid var(--border); background: var(--card); color: var(--text); resize: vertical; }
+  label { font-weight: 600; display: block; margin-bottom: 6px; }
+  #resultado { margin-top: 14px; }
+  .res { border-radius: 12px; padding: 14px 16px; font-weight: 700; font-size: 1.05em; }
+  .res.good { background: var(--good-bg); color: var(--good); border: 2px solid var(--good); }
+  .res.bad { background: var(--warn-bg); color: var(--warn); border: 2px solid var(--warn); }
+  ul.check { list-style: none; padding: 0; margin: 12px 0 0; }
+  ul.check li { padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  ul.check .ok { color: var(--good); font-weight: 700; }
+  ul.check .no { color: var(--bad); font-weight: 700; }
+  .tip { color: var(--muted); font-size: .88em; display: block; margin-left: 1.6em; }
+  .meter { height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; margin-top: 10px; }
+  .meter > div { height: 100%; width: 0; background: var(--brand); transition: width .3s; }
+  .offline-badge { font-size: .8em; opacity: .9; }
+  footer { text-align: center; color: var(--muted); font-size: .8em; padding: 20px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Aprenda a Fazer Bons Prompts</h1>
+  <div class="tools" role="group" aria-label="Acessibilidade">
+    <button id="aMenos" aria-label="Diminuir letra">A−</button>
+    <button id="aMais" aria-label="Aumentar letra">A+</button>
+    <button id="contraste" aria-pressed="false">Alto contraste</button>
+  </div>
+</header>
+
+<nav aria-label="Navegação principal">
+  <button data-go="inicio" aria-current="page">Início</button>
+  <button data-go="oque">O que é um prompt?</button>
+  <button data-go="exemplos">Exemplos</button>
+  <button data-go="bons-ruins">Bons x Ruins</button>
+  <button data-go="validador">Validador</button>
+</nav>
+
+<main>
+
+  <!-- INÍCIO -->
+  <section id="inicio" class="active" aria-labelledby="t-inicio">
+    <div class="card hero">
+      <h2 id="t-inicio">Bem-vindo(a)! 👋</h2>
+      <p>Aprenda, em poucos minutos, a conversar melhor com uma IA.<br>
+         Este app funciona <strong>100% offline</strong>, sem internet.</p>
+      <button class="btn" data-go="oque">Começar a aprender</button>
+      <button class="btn secondary" data-go="validador">Ir direto ao validador</button>
+    </div>
+    <div class="card">
+      <strong>Trilha de aprendizado</strong>
+      <ol>
+        <li>Entenda o que é um prompt</li>
+        <li>Veja exemplos práticos</li>
+        <li>Compare 3 prompts bons e 3 ruins</li>
+        <li>Escreva o seu e receba um retorno</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- O QUE É UM PROMPT -->
+  <section id="oque" aria-labelledby="t-oque">
+    <h2 id="t-oque">O que é um prompt?</h2>
+    <div class="card">
+      <p><strong>Prompt é a instrução que você escreve para uma IA.</strong>
+         Quanto mais clara a instrução, melhor a resposta.</p>
+      <p>Um bom prompt costuma ter:</p>
+      <ul>
+        <li><strong>Tarefa</strong> – o que você quer que a IA faça</li>
+        <li><strong>Contexto</strong> – a situação e o assunto</li>
+        <li><strong>Público ou papel</strong> – para quem é, ou quem a IA deve ser</li>
+        <li><strong>Formato</strong> – lista, tabela, texto curto, passos…</li>
+        <li><strong>Detalhes</strong> – tamanho, tom, limites</li>
+      </ul>
+    </div>
+    <button class="btn" data-go="exemplos">Ver exemplos →</button>
+  </section>
+
+  <!-- EXEMPLOS -->
+  <section id="exemplos" aria-labelledby="t-ex">
+    <h2 id="t-ex">Exemplos práticos</h2>
+
+    <div class="card">
+      <strong>1. Estudar</strong>
+      <div class="prompt">Explique o que é uma variável em programação para um iniciante de 15 anos. Use uma analogia do dia a dia e um exemplo em Python de no máximo 3 linhas.</div>
+      <p class="why">Tem tarefa, público, analogia e formato.</p>
+    </div>
+
+    <div class="card">
+      <strong>2. Resumir</strong>
+      <div class="prompt">Resuma o texto abaixo em 5 tópicos curtos, em linguagem simples, destacando as datas importantes.
+
+[cole o texto aqui]</div>
+      <p class="why">Define quantidade, estilo e o que destacar.</p>
+    </div>
+
+    <div class="card">
+      <strong>3. Criar um plano</strong>
+      <div class="prompt">Atue como um professor de matemática. Monte um plano de estudos de 4 semanas para eu revisar álgebra linear, com 1 hora por dia. Apresente em uma tabela com semana, tema e exercício.</div>
+      <p class="why">Define papel, prazo, tempo disponível e formato de saída.</p>
+    </div>
+
+    <div class="card">
+      <strong>4. Corrigir</strong>
+      <div class="prompt">Revise o parágrafo abaixo, corrija erros de português e mantenha um tom formal. Mostre o que foi alterado.
+
+[cole o parágrafo aqui]</div>
+      <p class="why">Pede uma ação específica e um tom.</p>
+    </div>
+
+    <button class="btn" data-go="bons-ruins">Comparar bons e ruins →</button>
+  </section>
+
+  <!-- BONS X RUINS -->
+  <section id="bons-ruins" aria-labelledby="t-br">
+    <h2 id="t-br">3 prompts bons e 3 ruins</h2>
+
+    <h3>✅ Bons</h3>
+
+    <div class="card item good">
+      <span class="tag good">✔ Bom</span>
+      <div class="prompt">Crie 5 perguntas de múltipla escolha sobre a Revolução Francesa para alunos do ensino médio, com gabarito no final.</div>
+      <p class="why">Quantidade, tema, público e formato definidos.</p>
+    </div>
+    <div class="card item good">
+      <span class="tag good">✔ Bom</span>
+      <div class="prompt">Explique como funciona a fotossíntese em um parágrafo de até 80 palavras, para uma criança de 10 anos.</div>
+      <p class="why">Limite de tamanho e público claros.</p>
+    </div>
+    <div class="card item good">
+      <span class="tag good">✔ Bom</span>
+      <div class="prompt">Estou criando um site de 3 páginas para uma padaria. Sugira uma paleta de 4 cores e explique em uma frase por que cada uma combina com o tema.</div>
+      <p class="why">Traz contexto, tarefa e formato de resposta.</p>
+    </div>
+
+    <h3>❌ Ruins</h3>
+
+    <div class="card item bad">
+      <span class="tag bad">✖ Ruim</span>
+      <div class="prompt">Fale sobre história.</div>
+      <p class="why">Amplo demais: qual época? Para quem? Qual tamanho?</p>
+    </div>
+    <div class="card item bad">
+      <span class="tag bad">✖ Ruim</span>
+      <div class="prompt">Faz isso pra mim.</div>
+      <p class="why">"Isso" não diz nada. A IA não sabe a tarefa.</p>
+    </div>
+    <div class="card item bad">
+      <span class="tag bad">✖ Ruim</span>
+      <div class="prompt">Escreva um texto bom sobre tecnologia.</div>
+      <p class="why">"Bom" é vago e falta contexto, público e tamanho.</p>
+    </div>
+
+    <button class="btn" data-go="validador">Testar o meu prompt →</button>
+  </section>
+
+  <!-- VALIDADOR -->
+  <section id="validador" aria-labelledby="t-val">
+    <h2 id="t-val">Validador de prompt</h2>
+    <div class="card">
+      <label for="entrada">Escreva o seu prompt:</label>
+      <textarea id="entrada" placeholder="Ex.: Explique o que é uma API para um iniciante, em 3 tópicos curtos."></textarea>
+      <div>
+        <button class="btn" id="validar">Validar</button>
+        <button class="btn secondary" id="limpar">Limpar</button>
+      </div>
+      <div id="resultado" aria-live="polite"></div>
+    </div>
+    <p class="why">A análise é feita no seu dispositivo, por regras simples. Nada é enviado pela internet.</p>
+  </section>
+
+</main>
+
+<footer>App de ensino de prompts · funciona offline · salve este arquivo e abra quando quiser</footer>
+
+<script>
+(function () {
+  // ---------- Navegação ----------
+  var secoes = document.querySelectorAll('main section');
+  var botoesNav = document.querySelectorAll('nav button');
+
+  function ir(id) {
+    secoes.forEach(function (s) { s.classList.toggle('active', s.id === id); });
+    botoesNav.forEach(function (b) {
+      if (b.dataset.go === id) b.setAttribute('aria-current', 'page');
+      else b.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+    var h = document.querySelector('#' + id + ' h2');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  }
+  document.addEventListener('click', function (e) {
+    var alvo = e.target.closest('[data-go]');
+    if (alvo) ir(alvo.dataset.go);
+  });
+
+  // ---------- Acessibilidade ----------
+  var tam = 18;
+  function aplicaTam() { document.documentElement.style.setProperty('--fs', tam + 'px'); }
+  document.getElementById('aMais').onclick = function () { tam = Math.min(26, tam + 2); aplicaTam(); };
+  document.getElementById('aMenos').onclick = function () { tam = Math.max(14, tam - 2); aplicaTam(); };
+  var btnC = document.getElementById('contraste');
+  btnC.onclick = function () {
+    var on = document.body.classList.toggle('contrast');
+    btnC.setAttribute('aria-pressed', on ? 'true' : 'false');
+  };
+
+  // ---------- Validador offline ----------
+  function normaliza(t) {
+    return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  var verbos = /\b(explique|explicar|crie|criar|escreva|escrever|liste|listar|resuma|resumir|compare|comparar|traduza|traduzir|gere|gerar|analise|analisar|revise|revisar|corrija|corrigir|monte|montar|elabore|elaborar|ensine|ensinar|descreva|descrever|calcule|calcular|sugira|sugerir|converta|converter|organize|organizar|defina|definir|simule|simular|planeje|planejar|reescreva|reescrever|identifique|identificar|proponha|propor|mostre|mostrar|faca um|desenvolva|desenvolver)\b/;
+  var contextoMarc = /\b(estou|sou|preciso|quero|meu|minha|meus|minhas|projeto|trabalho|aula|prova|curso|empresa|site|app|aplicativo|contexto|sobre|tema|texto abaixo|a seguir)\b/;
+  var formatoMarc = /\b(topico|topicos|lista|tabela|paragrafo|paragrafos|passos|etapas|resumo|palavras|linhas|frases|exemplo|exemplos|formato|codigo|python|json|bullet|itens|questoes|perguntas|ate \d+|em \d+|\d+ (topicos|itens|linhas|palavras|frases|exemplos|perguntas|passos|paragrafos))\b/;
+  var publicoMarc = /\b(para (um|uma|o|a|os|as) |iniciante|crianca|adolescente|aluno|alunos|estudante|professor|publico|leigo|especialista|atue como|aja como|voce e|tom|formal|informal|simples|didatico|linguagem)\b/;
+  var vagas = /\b(coisa|coisas|algo|isso|isto|tudo|qualquer|bom|boa|legal|massa|etc)\b/g;
+
+  function analisa(textoOriginal) {
+    var t = normaliza(textoOriginal.trim());
+    var palavras = t ? t.split(/\s+/).length : 0;
+    var temVago = (t.match(vagas) || []).length;
+
+    var criterios = [
+      { ok: verbos.test(t),
+        nome: 'Tarefa clara',
+        dica: 'Comece com um verbo de ação: "Explique…", "Crie…", "Resuma…".' },
+      { ok: contextoMarc.test(t) || palavras >= 15,
+        nome: 'Contexto',
+        dica: 'Diga o assunto e a situação. Ex.: "Estou estudando para a prova de…".' },
+      { ok: publicoMarc.test(t),
+        nome: 'Público ou papel',
+        dica: 'Diga para quem é ("para um iniciante") ou quem a IA deve ser ("atue como professor").' },
+      { ok: formatoMarc.test(t),
+        nome: 'Formato da resposta',
+        dica: 'Peça um formato: "em 3 tópicos", "em tabela", "em até 80 palavras".' },
+      { ok: palavras >= 6 && temVago === 0,
+        nome: 'Específico (sem termos vagos)',
+        dica: palavras < 6
+          ? 'Muito curto. Acrescente detalhes sobre o que você quer.'
+          : 'Troque palavras vagas ("coisa", "isso", "bom") por detalhes concretos.' }
+    ];
+
+    var pontos = criterios.filter(function (c) { return c.ok; }).length;
+    var claro = criterios[0].ok && palavras >= 6 && pontos >= 3 && temVago === 0;
+    return { claro: claro, pontos: pontos, criterios: criterios, palavras: palavras };
+  }
+
+  function escapa(s) {
+    return s.replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var saida = document.getElementById('resultado');
+  var campo = document.getElementById('entrada');
+
+  document.getElementById('validar').onclick = function () {
+    var texto = campo.value;
+    if (!texto.trim()) {
+      saida.innerHTML = '<div class="res bad">⚠️ Escreva um prompt primeiro.</div>';
+      campo.focus();
+      return;
+    }
+    var r = analisa(texto);
+    var html = r.claro
+      ? '<div class="res good">✅ Seu prompt está claro</div>'
+      : '<div class="res bad">💡 Seu prompt pode melhorar</div>';
+
+    html += '<div class="meter" role="img" aria-label="' + r.pontos + ' de 5 critérios atendidos"><div style="width:' + (r.pontos * 20) + '%"></div></div>';
+    html += '<p class="why">' + r.pontos + ' de 5 critérios atendidos</p><ul class="check">';
+    r.criterios.forEach(function (c) {
+      html += '<li><span class="' + (c.ok ? 'ok' : 'no') + '">' + (c.ok ? '✔' : '✖') + '</span> ' + escapa(c.nome);
+      if (!c.ok) html += '<span class="tip">' + escapa(c.dica) + '</span>';
+      html += '</li>';
+    });
+    html += '</ul>';
+    saida.innerHTML = html;
+  };
+
+  document.getElementById('limpar').onclick = function () {
+    campo.value = ''; saida.innerHTML = ''; campo.focus();
+  };
+})();
+
+// ---------- PWA: registra o service worker (offline) ----------
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
