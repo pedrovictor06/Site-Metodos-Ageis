@@ -6,6 +6,7 @@
 <title>Aprenda a Fazer Bons Prompts</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#3b4cca">
+<meta name="description" content="App offline para aprender a escrever bons prompts.">
 <link rel="apple-touch-icon" href="imagens/icon-192.png">
 <style>
   :root {
@@ -111,6 +112,19 @@
            border-radius:8px; padding:10px 12px; margin:0; }
   .junto mark { background:var(--b); color:var(--text); border-bottom:3px solid var(--c); padding:1px 2px; border-radius:3px; }
   body:not(.contrast) .junto mark { color:#1d2433; }
+  /* Nome da parte escrito ao lado do trecho (não depende só de cor) */
+  .junto mark { padding:1px 3px; }
+  .junto mark::after { content:attr(title); font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+        font-size:.7em; font-weight:700; color:var(--c); background:var(--card); border:1.5px solid var(--c);
+        border-radius:99px; padding:0 7px; margin:0 2px 0 6px; white-space:nowrap; vertical-align:middle; }
+  .falta { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:10px 0 0; font-size:.88em; color:var(--muted); }
+  .aviso { background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn); border-radius:10px;
+           padding:8px 12px; margin:10px 0 0; font-size:.9em; }
+  .grupo { font-weight:700; margin:16px 0 0; }
+  .evid { display:block; margin-left:1.6em; font-size:.85em; color:var(--muted); }
+  ul.check .opt { color:var(--muted); font-weight:700; }
+  .acoes-extra { margin-top:6px; }
+  .acoes-extra .btn { font-size:.85em; padding:8px 14px; }
 </style>
 </head>
 <body>
@@ -160,7 +174,7 @@
     <div class="card">
       <p><strong>Prompt é a instrução que você escreve para uma IA.</strong>
          Quanto mais clara a instrução, melhor a resposta.</p>
-      <p>Um bom prompt costuma ter estas partes (nem todo prompt precisa de todas):</p>
+      <p>Um bom prompt é feito de partes. As <strong>essenciais</strong> são <strong>Tarefa</strong>, <strong>Contexto</strong> e <strong>Formato</strong>; as outras (Persona, Público, Tom e detalhes) são opcionais e deixam a resposta mais precisa. A ordem pode mudar.</p>
       <ul>
         <li><span class="chip persona">Persona</span> – quem a IA deve ser. Ex.: "Atue como um professor de matemática"</li>
         <li><span class="chip contexto">Contexto</span> – a situação e o assunto. Ex.: "Estou estudando para a prova de álgebra"</li>
@@ -178,7 +192,7 @@
     <h2 id="t-ex">Exemplos práticos</h2>
     <div class="card">
       <strong>Como ler os exemplos</strong>
-      <p class="why">Cada prompt foi separado em partes. Cada parte tem uma cor e um nome.</p>
+      <p class="why">Cada prompt aparece de duas formas: primeiro <b>separado em partes</b> e depois <b>inteiro, do jeito que você escreveria</b>. Cada parte tem um nome e uma cor, e o nome também aparece escrito ao lado do trecho.</p>
       <ul class="legenda" aria-label="Legenda das partes">
         <li><span class="chip persona">Persona</span></li>
         <li><span class="chip contexto">Contexto</span></li>
@@ -187,47 +201,10 @@
         <li><span class="chip formato">Formato</span></li>
         <li><span class="chip tom">Tom e detalhes</span></li>
       </ul>
+      <p class="why">Nem todo prompt usa todas as partes. As essenciais são Tarefa, Contexto e Formato.</p>
     </div>
 
-    <div class="card">
-      <strong>1. Estudar</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Explique o que é uma variável</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">em programação</span></div>
-      <div class="parte publico"><span class="rotulo">Público</span><span class="texto">para um iniciante de 15 anos.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Use uma analogia do dia a dia e um exemplo em Python de no máximo 3 linhas.</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Explique o que é uma variável</mark> <mark class="contexto" title="Contexto">em programação</mark> <mark class="publico" title="Público">para um iniciante de 15 anos.</mark> <mark class="formato" title="Formato">Use uma analogia do dia a dia e um exemplo em Python de no máximo 3 linhas.</mark></p>
-    </div>
-
-    <div class="card">
-      <strong>2. Resumir</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Resuma o texto abaixo</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">em 5 tópicos curtos,</span></div>
-      <div class="parte tom"><span class="rotulo">Tom e detalhes</span><span class="texto">em linguagem simples, destacando as datas importantes.</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">[cole o texto aqui]</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Resuma o texto abaixo</mark> <mark class="formato" title="Formato">em 5 tópicos curtos,</mark> <mark class="tom" title="Tom e detalhes">em linguagem simples, destacando as datas importantes.</mark> <mark class="contexto" title="Contexto">[cole o texto aqui]</mark></p>
-    </div>
-
-    <div class="card">
-      <strong>3. Criar um plano</strong>
-      <div class="parte persona"><span class="rotulo">Persona</span><span class="texto">Atue como um professor de matemática.</span></div>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Monte um plano de estudos de 4 semanas</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">para eu revisar álgebra linear, com 1 hora por dia.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Apresente em uma tabela com semana, tema e exercício.</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="persona" title="Persona">Atue como um professor de matemática.</mark> <mark class="tarefa" title="Tarefa">Monte um plano de estudos de 4 semanas</mark> <mark class="contexto" title="Contexto">para eu revisar álgebra linear, com 1 hora por dia.</mark> <mark class="formato" title="Formato">Apresente em uma tabela com semana, tema e exercício.</mark></p>
-    </div>
-
-    <div class="card">
-      <strong>4. Corrigir</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Revise o parágrafo abaixo e corrija erros de português</span></div>
-      <div class="parte tom"><span class="rotulo">Tom e detalhes</span><span class="texto">e mantenha um tom formal.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Mostre o que foi alterado.</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">[cole o parágrafo aqui]</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Revise o parágrafo abaixo e corrija erros de português</mark> <mark class="tom" title="Tom e detalhes">e mantenha um tom formal.</mark> <mark class="formato" title="Formato">Mostre o que foi alterado.</mark> <mark class="contexto" title="Contexto">[cole o parágrafo aqui]</mark></p>
-    </div>
+    <div id="lista-exemplos"></div>
 
     <button class="btn" data-go="bons-ruins">Comparar bons e ruins →</button>
   </section>
@@ -235,42 +212,13 @@
   <!-- BONS X RUINS -->
   <section id="bons-ruins" aria-labelledby="t-br">
     <h2 id="t-br">3 prompts bons e 3 ruins</h2>
+    <p class="why">Nos prompts bons, cada trecho mostra a parte a que pertence. Nos ruins, os rótulos mostram o que faltou.</p>
 
     <h3>✅ Bons</h3>
-
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Crie 5 perguntas de múltipla escolha sobre a Revolução Francesa para alunos do ensino médio, com gabarito no final.</div>
-      <p class="why">Quantidade, tema, público e formato definidos.</p>
-    </div>
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Explique como funciona a fotossíntese em um parágrafo de até 80 palavras, para uma criança de 10 anos.</div>
-      <p class="why">Limite de tamanho e público claros.</p>
-    </div>
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Estou criando um site de 3 páginas para uma padaria. Sugira uma paleta de 4 cores e explique em uma frase por que cada uma combina com o tema.</div>
-      <p class="why">Traz contexto, tarefa e formato de resposta.</p>
-    </div>
+    <div id="lista-bons"></div>
 
     <h3>❌ Ruins</h3>
-
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Fale sobre história.</div>
-      <p class="why">Amplo demais: qual época? Para quem? Qual tamanho?</p>
-    </div>
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Faz isso pra mim.</div>
-      <p class="why">"Isso" não diz nada. A IA não sabe a tarefa.</p>
-    </div>
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Escreva um texto bom sobre tecnologia.</div>
-      <p class="why">"Bom" é vago e falta contexto, público e tamanho.</p>
-    </div>
+    <div id="lista-ruins"></div>
 
     <button class="btn" data-go="validador">Testar o meu prompt →</button>
   </section>
@@ -280,14 +228,18 @@
     <h2 id="t-val">Validador de prompt</h2>
     <div class="card">
       <label for="entrada">Escreva o seu prompt:</label>
-      <textarea id="entrada" placeholder="Ex.: Explique o que é uma API para um iniciante, em 3 tópicos curtos."></textarea>
+      <textarea id="entrada" maxlength="2000" placeholder="Ex.: Estou estudando para a prova de Redes. Explique o que é uma API para um iniciante, em 3 tópicos curtos."></textarea>
       <div>
         <button class="btn" id="validar">Validar</button>
         <button class="btn secondary" id="limpar">Limpar</button>
       </div>
+      <div class="acoes-extra">
+        <button class="btn secondary" id="exBom">Testar um exemplo bom</button>
+        <button class="btn secondary" id="exRuim">Testar um exemplo ruim</button>
+      </div>
       <div id="resultado" aria-live="polite"></div>
     </div>
-    <p class="why">A análise é feita no seu dispositivo, por regras simples. Nada é enviado pela internet.</p>
+    <p class="why">A análise é feita no seu dispositivo, por regras simples. Nada é enviado pela internet. O validador procura palavras-chave e <b>não entende o sentido</b> do texto: use o resultado como guia de estudo, não como nota.</p>
   </section>
 
 </main>
@@ -296,16 +248,22 @@
 
 <script>
 (function () {
-  // ---------- Navegação ----------
+  // ---------- Armazenamento (pode falhar em modo privado: nunca quebra o app) ----------
+  function guarda(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function le(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+  // ---------- Navegação (com botão "voltar" do celular) ----------
   var secoes = document.querySelectorAll('main section');
   var botoesNav = document.querySelectorAll('nav button');
 
-  function ir(id) {
+  function ir(id, veioDoHistorico) {
+    if (!document.getElementById(id)) id = 'inicio';
     secoes.forEach(function (s) { s.classList.toggle('active', s.id === id); });
     botoesNav.forEach(function (b) {
       if (b.dataset.go === id) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
     });
+    if (!veioDoHistorico) { try { history.pushState(null, '', '#' + id); } catch (e) {} }
     window.scrollTo(0, 0);
     var h = document.querySelector('#' + id + ' h2');
     if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
@@ -314,69 +272,272 @@
     var alvo = e.target.closest('[data-go]');
     if (alvo) ir(alvo.dataset.go);
   });
+  window.addEventListener('popstate', function () { ir(location.hash.slice(1) || 'inicio', true); });
+  if (location.hash.length > 1) ir(location.hash.slice(1), true);
 
-  // ---------- Acessibilidade ----------
-  var tam = 18;
-  function aplicaTam() { document.documentElement.style.setProperty('--fs', tam + 'px'); }
+  // ---------- Acessibilidade (preferências ficam salvas) ----------
+  var tam = Math.min(26, Math.max(14, parseInt(le('fs'), 10) || 18));
+  function aplicaTam() { document.documentElement.style.setProperty('--fs', tam + 'px'); guarda('fs', tam); }
+  aplicaTam();
   document.getElementById('aMais').onclick = function () { tam = Math.min(26, tam + 2); aplicaTam(); };
   document.getElementById('aMenos').onclick = function () { tam = Math.max(14, tam - 2); aplicaTam(); };
   var btnC = document.getElementById('contraste');
-  btnC.onclick = function () {
-    var on = document.body.classList.toggle('contrast');
+  function aplicaContraste(on) {
+    document.body.classList.toggle('contrast', on);
     btnC.setAttribute('aria-pressed', on ? 'true' : 'false');
-  };
+    guarda('contraste', on ? '1' : '0');
+  }
+  btnC.onclick = function () { aplicaContraste(!document.body.classList.contains('contrast')); };
+  if (le('contraste') === '1') aplicaContraste(true);
+
+  // ---------- Exemplos e comparações (uma única fonte de dados) ----------
+  // Cada prompt é uma lista de [parte, trecho]. A lista separada e o texto "juntado"
+  // saem da MESMA lista, então nunca ficam diferentes entre si.
+  var ROT = { persona: 'Persona', contexto: 'Contexto', tarefa: 'Tarefa', publico: 'Público', formato: 'Formato', tom: 'Tom e detalhes' };
+  var ORDEM = ['persona', 'contexto', 'tarefa', 'publico', 'formato', 'tom'];
+
+  var EXEMPLOS = [
+    { t: '1. Prompt completo (todas as partes)', p: [
+      ['persona', 'Atue como um professor de programação paciente.'],
+      ['contexto', 'Estou começando a aprender Python para a faculdade.'],
+      ['tarefa', 'Explique o que é uma variável'],
+      ['publico', 'para um iniciante de 15 anos,'],
+      ['formato', 'usando uma analogia do dia a dia e um exemplo de até 3 linhas.'],
+      ['tom', 'Use linguagem simples e evite termos técnicos.'] ] },
+    { t: '2. Resumir um texto', p: [
+      ['contexto', 'Estou estudando para a prova de História.'],
+      ['tarefa', 'Resuma o texto abaixo'],
+      ['formato', 'em 5 tópicos curtos,'],
+      ['tom', 'com linguagem simples, destacando as datas importantes.'],
+      ['contexto', 'Texto: [cole o texto aqui]'] ] },
+    { t: '3. Criar um plano de estudos', p: [
+      ['persona', 'Atue como um professor de matemática.'],
+      ['tarefa', 'Monte um plano de estudos de 4 semanas'],
+      ['contexto', 'para eu revisar álgebra linear, com 1 hora por dia.'],
+      ['formato', 'Apresente em uma tabela com semana, tema e exercício.'] ] },
+    { t: '4. Corrigir um texto', p: [
+      ['tarefa', 'Revise o parágrafo abaixo e corrija os erros de português.'],
+      ['tom', 'Mantenha um tom formal.'],
+      ['formato', 'Mostre o que foi alterado.'],
+      ['contexto', 'Parágrafo: [cole o parágrafo aqui]'] ] }
+  ];
+
+  var BONS = [
+    { p: [['tarefa', 'Crie 5 perguntas'], ['formato', 'de múltipla escolha'], ['contexto', 'sobre a Revolução Francesa'],
+          ['publico', 'para alunos do ensino médio,'], ['formato', 'com gabarito no final.']],
+      why: 'Tem tarefa, quantidade, tema, público e formato definidos.' },
+    { p: [['tarefa', 'Explique'], ['contexto', 'como funciona a fotossíntese'], ['formato', 'em um parágrafo'],
+          ['tom', 'de até 80 palavras,'], ['publico', 'para uma criança de 10 anos.']],
+      why: 'Limite de tamanho e público claros.' },
+    { p: [['contexto', 'Estou criando um site de 3 páginas para uma padaria.'], ['tarefa', 'Sugira uma paleta de 4 cores'],
+          ['formato', 'e explique em uma frase por que cada uma combina com o tema.']],
+      why: 'Traz contexto, tarefa e formato de resposta.' }
+  ];
+
+  var RUINS = [
+    { t: 'Fale sobre história.', falta: ['contexto', 'publico', 'formato'],
+      why: 'Amplo demais: qual época? Para quem? Qual tamanho?' },
+    { t: 'Faz isso pra mim.', falta: ['tarefa', 'contexto', 'formato'],
+      why: '"Isso" não diz nada. A IA não sabe a tarefa.' },
+    { t: 'Escreva um texto bom sobre tecnologia.', falta: ['contexto', 'publico', 'formato'],
+      why: '"Bom" é vago e "tecnologia" é amplo demais. Faltam contexto, público e tamanho.' }
+  ];
+
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt) e.textContent = txt;
+    return e;
+  }
+  function chip(k) { return el('span', 'chip ' + k, ROT[k]); }
+  function junto(partes) {
+    var p = el('p', 'junto');
+    partes.forEach(function (x, i) {
+      var m = el('mark', x[0], x[1]);
+      m.title = ROT[x[0]];
+      p.appendChild(m);
+      if (i < partes.length - 1) p.appendChild(document.createTextNode(' '));
+    });
+    return p;
+  }
+  function linhaChips(lista, texto) {
+    if (!lista.length) return null;
+    var d = el('p', 'falta', texto + ' ');
+    lista.forEach(function (k) { d.appendChild(chip(k)); });
+    return d;
+  }
+  function naoUsadas(partes) {
+    var u = {};
+    partes.forEach(function (x) { u[x[0]] = 1; });
+    return ORDEM.filter(function (k) { return !u[k]; });
+  }
+
+  var boxEx = document.getElementById('lista-exemplos');
+  EXEMPLOS.forEach(function (ex) {
+    var card = el('div', 'card');
+    card.appendChild(el('strong', '', ex.t));
+    ex.p.forEach(function (x) {
+      var d = el('div', 'parte ' + x[0]);
+      d.appendChild(el('span', 'rotulo', ROT[x[0]]));
+      d.appendChild(el('span', 'texto', x[1]));
+      card.appendChild(d);
+    });
+    card.appendChild(el('p', 'junto-titulo', 'Juntando tudo, o aluno escreve (o nome de cada parte aparece ao lado do trecho):'));
+    card.appendChild(junto(ex.p));
+    var f = linhaChips(naoUsadas(ex.p), 'Não usado neste exemplo:');
+    if (f) card.appendChild(f);
+    boxEx.appendChild(card);
+  });
+
+  var boxBons = document.getElementById('lista-bons');
+  BONS.forEach(function (b) {
+    var c = el('div', 'card item good');
+    c.appendChild(el('span', 'tag good', '✔ Bom'));
+    c.appendChild(junto(b.p));
+    c.appendChild(el('p', 'why', b.why));
+    boxBons.appendChild(c);
+  });
+
+  var boxRuins = document.getElementById('lista-ruins');
+  RUINS.forEach(function (r) {
+    var c = el('div', 'card item bad');
+    c.appendChild(el('span', 'tag bad', '✖ Ruim'));
+    c.appendChild(el('div', 'prompt', r.t));
+    c.appendChild(el('p', 'why', r.why));
+    c.appendChild(linhaChips(r.falta, 'Faltou:'));
+    boxRuins.appendChild(c);
+  });
 
   // ---------- Validador offline ----------
-  function normaliza(t) {
-    return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  function normaliza(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  function chave(tok) { return normaliza(tok).replace(/[^a-z0-9]/g, ''); }
+
+  // Remove repetições: frases iguais e blocos de palavras repetidos em sequência.
+  // Assim, colar o mesmo comando várias vezes conta como UMA vez só.
+  function semRepeticao(original) {
+    var frases = original.match(/[^.!?\n]+[.!?]*/g) || [];
+    var vistas = {}, mantidas = [];
+    frases.forEach(function (f) {
+      var k = normaliza(f).replace(/[^a-z0-9]+/g, ' ').trim();
+      if (!k || vistas[k]) return;
+      vistas[k] = 1;
+      mantidas.push(f.trim());
+    });
+    var antes = original.split(/\s+/).filter(Boolean).length;
+    var toks = mantidas.join(' ').split(/\s+/).filter(Boolean);
+
+    function igual(a, i, j, n) {
+      if (j + n > a.length) return false;
+      for (var x = 0; x < n; x++) if (chave(a[i + x]) !== chave(a[j + x])) return false;
+      return true;
+    }
+    for (var k = 1; k <= 30; k++) {
+      var out = [], i = 0;
+      while (i < toks.length) {
+        var j = i + k;
+        while (igual(toks, i, j, k)) j += k;
+        if (j > i + k) { out = out.concat(toks.slice(i, i + k)); i = j; }
+        else { out.push(toks[i]); i++; }
+      }
+      toks = out;
+    }
+    return { texto: toks.join(' '), removidas: antes - toks.length };
   }
 
-  var verbos = /\b(explique|explicar|crie|criar|escreva|escrever|liste|listar|resuma|resumir|compare|comparar|traduza|traduzir|gere|gerar|analise|analisar|revise|revisar|corrija|corrigir|monte|montar|elabore|elaborar|ensine|ensinar|descreva|descrever|calcule|calcular|sugira|sugerir|converta|converter|organize|organizar|defina|definir|simule|simular|planeje|planejar|reescreva|reescrever|identifique|identificar|proponha|propor|mostre|mostrar|faca um|desenvolva|desenvolver)\b/;
-  var contextoMarc = /\b(estou|sou|preciso|quero|meu|minha|meus|minhas|projeto|trabalho|aula|prova|curso|empresa|site|app|aplicativo|contexto|sobre|tema|texto abaixo|a seguir)\b/;
-  var formatoMarc = /\b(topico|topicos|lista|tabela|paragrafo|paragrafos|passos|etapas|resumo|palavras|linhas|frases|exemplo|exemplos|formato|codigo|python|json|bullet|itens|questoes|perguntas|ate \d+|em \d+|\d+ (topicos|itens|linhas|palavras|frases|exemplos|perguntas|passos|paragrafos))\b/;
-  var publicoMarc = /\b(para (um|uma|o|a|os|as) |iniciante|crianca|adolescente|aluno|alunos|estudante|professor|publico|leigo|especialista|atue como|aja como|voce e|tom|formal|informal|simples|didatico|linguagem)\b/;
-  var vagas = /\b(coisa|coisas|algo|isso|isto|tudo|qualquer|bom|boa|legal|massa|etc)\b/g;
+  // Padrões (texto já sem acentos e em minúsculas)
+  var NUM = '(?:\\d+|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez)';
+  var RE = {
+    verbo: /\b(?:explique|crie|escreva|liste|resuma|compare|traduza|gere|analise|revise|corrija|monte|elabore|ensine|descreva|calcule|sugira|converta|organize|defina|simule|planeje|reescreva|identifique|proponha|mostre|faca|desenvolva|fale|diga|conte|ajude|indique|recomende|escolha|justifique|argumente|avalie|classifique|responda|pesquise|prepare|redija|produza|construa|detalhe|esclareca|simplifique|melhore|otimize|adapte|resolva|relacione|ordene|extraia|transforme|formule|imagine|interprete|exemplifique|discuta|apresente|demonstre|sintetize|complete|continue|cite)\b/,
+    pergunta: /^(?:o que|como|qual|quais|por que|quando|onde|quem|quanto|quantos|quantas)\b/,
+    situacao: /\b(?:estou|estamos|sou|somos|tenho|temos|preciso|precisamos|quero|queremos|vou|vamos|para eu|trabalho|prova|aula|curso|faculdade|escola|projeto|empresa|apresentacao|tcc|entrevista|reuniao|site|app|aplicativo|contexto|situacao|porque|pois|meu|minha|meus|minhas|abaixo|a seguir)\b/,
+    tema: /\b(sobre|a respeito de|acerca de|o que e|o que sao|como funciona|como funcionam|diferenca entre|diferencas entre|historia d[oa]s?|conceito de|significado de|origem d[oa]s?)\s+((?:[a-z0-9\-]+\s*){1,5})/,
+    persona: /\b(?:atue como|aja como|haja como|finja ser|assuma o papel de|no papel de|voce e (?:um|uma)|como (?:um|uma) (?:professor|professora|especialista|tutor|tutora|consultor|consultora|engenheiro|engenheira|medico|medica|advogado|advogada|redator|redatora|designer|programador|programadora|cientista|historiador|historiadora|jornalista|coach|nutricionista|psicologo|psicologa|arquiteto|arquiteta|analista|mentor|mentora))\b/,
+    publico: /\b(?:para|pra|destinado a|direcionado a)\s+(?:(?:um|uma|o|a|os|as|meu|minha|meus|minhas|seu|sua)\s+)?(?:[a-z]+\s+){0,2}?(?:iniciantes?|criancas?|adolescentes?|jovens|alunos?|estudantes?|professores?|leigos?|especialistas?|idosos?|adultos?|publico|turma|clientes?|chefe|equipe|colegas?|leitores?|pais|maes|universitarios?|ensino (?:fundamental|medio))\b|\b\d{1,2} anos\b|\bpublico\b|\bnivel (?:basico|iniciante|intermediario|avancado)\b/,
+    formato: [
+      new RegExp('\\b' + NUM + '\\s+(?:[a-z]+\\s+)?(?:perguntas?|questoes|questao|exercicios?|exemplos?|dicas?|ideias?|frases?|linhas?|paragrafos?|topicos?|itens|item|passos?|sugestoes|opcoes|slides?|colunas?|etapas?|palavras|cores)\\b'),
+      /\b(?:topicos|tabela|lista|paragrafos?|passos|etapas|itens|bullets?|json|csv|codigo|passo a passo|checklist|roteiro|gabarito|marcadores|colunas|multipla escolha|slides|titulos?|esquema|mapa mental)\b/,
+      new RegExp('\\b(?:liste|cite|sugira|indique|recomende|crie|escreva|gere|proponha|monte|faca)\\s+' + NUM + '\\s+[a-z]+'),
+      /\b(?:com|inclua|use|usando)\s+(?:um|uma|uns|\d+)?\s*exemplos?\b/
+    ],
+    tom: /\b(?:tom (?:formal|informal|amigavel|didatico|profissional|descontraido|serio|neutro|tecnico|motivador|divertido)|linguagem|formal|informal|descontraid[oa]|didatic[oa]|objetiv[oa]|concis[oa]|breves?|curt[oa]s?|detalhad[oa]|simples|sem jargoes|sem jargao|evite|nao use|no maximo|ate \d+(?: [a-z]+)?|\d+ palavras|\d+ caracteres|destacando|destaque|mantenha|divertid[oa])\b/,
+    vaga: /\b(?:coisa|coisas|algo|isso|isto|tudo|qualquer|bom|boa|legal|massa|bacana|interessante|etc)\b/g
+  };
+  var PARADAS = ' a o as os um uma uns umas de do da dos das e em no na nos nas para por com que ser seu sua ao aos ';
+  var GENERICOS = ' historia tecnologia ciencia assunto tema texto mundo vida geral informacoes informacao ';
+  var VAGAS_UNICAS = ' coisa coisas algo isso isto tudo qualquer bom boa legal massa bacana interessante etc ';
 
-  function analisa(textoOriginal) {
-    var t = normaliza(textoOriginal.trim());
+  // "Sobre história" é amplo demais; "sobre a Revolução Francesa" ou "o que é uma API" têm tema específico.
+  function temaEspecifico(t) {
+    var m = RE.tema.exec(t);
+    if (!m) return null;
+    var pal = m[2].trim().split(/\s+/).filter(function (w) {
+      var c = ' ' + w + ' ';
+      return w.length >= 2 && PARADAS.indexOf(c) < 0 && GENERICOS.indexOf(c) < 0 && VAGAS_UNICAS.indexOf(c) < 0;
+    });
+    var ok = pal.length >= 2 || (pal.length === 1 && pal[0].length >= 3);
+    return ok ? m : null;
+  }
+
+  function analisa(original) {
+    var sr = semRepeticao(original);
+    var temMarcador = /\[[^\]]{0,80}\]/.test(original);
+    var texto = sr.texto.replace(/\[[^\]]{0,80}\]/g, ' ').replace(/\s+/g, ' ').trim();
+    var t = normaliza(texto);
     var palavras = t ? t.split(/\s+/).length : 0;
-    var temVago = (t.match(vagas) || []).length;
 
-    var criterios = [
-      { ok: verbos.test(t),
-        nome: 'Tarefa clara',
-        dica: 'Comece com um verbo de ação: "Explique…", "Crie…", "Resuma…".' },
-      { ok: contextoMarc.test(t) || palavras >= 15,
-        nome: 'Contexto',
-        dica: 'Diga o assunto e a situação. Ex.: "Estou estudando para a prova de…".' },
-      { ok: publicoMarc.test(t),
-        nome: 'Público ou papel',
-        dica: 'Diga para quem é ("para um iniciante") ou quem a IA deve ser ("atue como professor").' },
-      { ok: formatoMarc.test(t),
-        nome: 'Formato da resposta',
-        dica: 'Peça um formato: "em 3 tópicos", "em tabela", "em até 80 palavras".' },
-      { ok: palavras >= 6 && temVago === 0,
-        nome: 'Específico (sem termos vagos)',
-        dica: palavras < 6
-          ? 'Muito curto. Acrescente detalhes sobre o que você quer.'
-          : 'Troque palavras vagas ("coisa", "isso", "bom") por detalhes concretos.' }
-    ];
+    function trecho(m) {
+      var s = (t.length === texto.length) ? texto.substr(m.index, m[0].length) : m[0];
+      s = s.trim();
+      return s.length > 45 ? s.slice(0, 45) + '…' : s;
+    }
+    function acha(re) { var m = re.exec(t); return m ? trecho(m) : null; }
+    function achaAlgum(lista) {
+      for (var i = 0; i < lista.length; i++) { var r = acha(lista[i]); if (r) return r; }
+      return null;
+    }
 
-    var pontos = criterios.filter(function (c) { return c.ok; }).length;
-    var claro = criterios[0].ok && palavras >= 6 && pontos >= 3 && temVago === 0;
-    return { claro: claro, pontos: pontos, criterios: criterios, palavras: palavras };
+    var ev = {};
+    ev.tarefa = acha(RE.verbo) || (RE.pergunta.test(t) ? trecho(RE.pergunta.exec(t)) : null);
+    var sit = palavras >= 7 ? acha(RE.situacao) : null;   // "preciso" sozinho não é contexto
+    var tema = temaEspecifico(t);
+    ev.contexto = sit || (tema ? trecho(tema) : null);
+    ev.formato = achaAlgum(RE.formato);
+    ev.persona = acha(RE.persona);
+    ev.publico = acha(RE.publico);
+    ev.tom = acha(RE.tom);
+
+    var vagas = (t.match(RE.vaga) || []).length;
+    return { ev: ev, palavras: palavras, vagas: vagas, repetidas: sr.removidas, temMarcador: temMarcador };
   }
+
+  var ESSENCIAIS = [
+    ['tarefa', 'Tarefa clara', 'Comece com um verbo de ação ("Explique…", "Crie…", "Resuma…") ou faça uma pergunta direta.'],
+    ['contexto', 'Contexto', 'Diga o assunto específico e a situação. Ex.: "Estou estudando para a prova de…". Temas como "história" ou "tecnologia" são amplos demais.'],
+    ['formato', 'Formato da resposta', 'Peça como a resposta deve vir: "em 3 tópicos", "em tabela", "com gabarito no final".']
+  ];
+  var OPCIONAIS = [
+    ['persona', 'Persona', 'Diga quem a IA deve ser. Ex.: "Atue como professor de matemática".'],
+    ['publico', 'Público', 'Diga para quem é. Ex.: "para um iniciante", "para uma criança de 10 anos".'],
+    ['tom', 'Tom e detalhes', 'Defina estilo, tamanho ou limites. Ex.: "linguagem simples", "até 80 palavras".']
+  ];
 
   function escapa(s) {
-    return s.replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    return s.replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+  function linha(k, nome, dica, ev, essencial) {
+    var simbolo = ev ? '<span class="ok">✔</span>' : (essencial ? '<span class="no">✖</span>' : '<span class="opt">○</span>');
+    var s = '<li>' + simbolo + ' <span class="chip ' + k + '">' + nome + '</span>';
+    if (ev) s += '<span class="evid">encontrado: “' + escapa(ev) + '”</span>';
+    else s += '<span class="tip">' + (essencial ? 'Faltou. ' : 'Não encontrado (opcional). ') + escapa(dica) + '</span>';
+    return s + '</li>';
   }
 
   var saida = document.getElementById('resultado');
   var campo = document.getElementById('entrada');
 
-  document.getElementById('validar').onclick = function () {
+  function validar() {
     var texto = campo.value;
     if (!texto.trim()) {
       saida.innerHTML = '<div class="res bad">⚠️ Escreva um prompt primeiro.</div>';
@@ -384,24 +545,47 @@
       return;
     }
     var r = analisa(texto);
-    var html = r.claro
-      ? '<div class="res good">✅ Seu prompt está claro</div>'
-      : '<div class="res bad">💡 Seu prompt pode melhorar</div>';
+    var nEss = ESSENCIAIS.filter(function (c) { return r.ev[c[0]]; }).length;
+    var nOpc = OPCIONAIS.filter(function (c) { return r.ev[c[0]]; }).length;
+    var especifico = r.palavras >= 6 && r.vagas === 0;
 
-    html += '<div class="meter" role="img" aria-label="' + r.pontos + ' de 5 critérios atendidos"><div style="width:' + (r.pontos * 20) + '%"></div></div>';
-    html += '<p class="why">' + r.pontos + ' de 5 critérios atendidos</p><ul class="check">';
-    r.criterios.forEach(function (c) {
-      html += '<li><span class="' + (c.ok ? 'ok' : 'no') + '">' + (c.ok ? '✔' : '✖') + '</span> ' + escapa(c.nome);
-      if (!c.ok) html += '<span class="tip">' + escapa(c.dica) + '</span>';
-      html += '</li>';
-    });
-    html += '</ul>';
+    var html;
+    if (!r.ev.tarefa) html = '<div class="res bad">⚠️ Falta dizer o que a IA deve fazer</div>';
+    else if (nEss === 3 && especifico) html = '<div class="res good">✅ Prompt bem estruturado</div>';
+    else html = '<div class="res bad">💡 Bom começo, mas ainda dá para melhorar</div>';
+
+    if (r.repetidas >= 2) html += '<p class="aviso">🔁 Você repetiu trechos do prompt. Repetir não deixa o prompt melhor, então a análise contou cada trecho uma vez só.</p>';
+    if (r.temMarcador) html += '<p class="aviso">✏️ Há um trecho entre colchetes, como [cole o texto aqui]. Troque pelo conteúdo real antes de usar o prompt.</p>';
+
+    html += '<div class="meter" role="img" aria-label="' + nEss + ' de 3 partes essenciais"><div style="width:' + Math.round(nEss / 3 * 100) + '%"></div></div>';
+    html += '<p class="why">Partes essenciais: ' + nEss + ' de 3 · Partes opcionais: ' + nOpc + ' de 3</p>';
+
+    html += '<p class="grupo">Essenciais</p><ul class="check">';
+    ESSENCIAIS.forEach(function (c) { html += linha(c[0], c[1], c[2], r.ev[c[0]], true); });
+    html += '</ul><p class="grupo">Opcionais (deixam a resposta mais precisa)</p><ul class="check">';
+    OPCIONAIS.forEach(function (c) { html += linha(c[0], c[1], c[2], r.ev[c[0]], false); });
+    html += '</ul><p class="grupo">Qualidade</p><ul class="check"><li>';
+    html += especifico ? '<span class="ok">✔</span> Específico, sem palavras vagas' :
+      '<span class="no">✖</span> Específico, sem palavras vagas<span class="tip">' +
+      (r.palavras < 6 ? 'Muito curto. Acrescente detalhes sobre o que você quer.'
+                      : 'Troque palavras vagas ("coisa", "isso", "bom") por detalhes concretos.') + '</span>';
+    html += '</li></ul>';
     saida.innerHTML = html;
-  };
+  }
 
+  document.getElementById('validar').onclick = validar;
   document.getElementById('limpar').onclick = function () {
     campo.value = ''; saida.innerHTML = ''; campo.focus();
   };
+  document.getElementById('exBom').onclick = function () {
+    campo.value = 'Estou estudando para a prova de Redes. Explique o que é uma API para um iniciante, em 3 tópicos curtos, com linguagem simples.';
+    validar();
+  };
+  document.getElementById('exRuim').onclick = function () {
+    campo.value = 'Escreva um texto bom sobre tecnologia.';
+    validar();
+  };
+
 })();
 
 // ---------- PWA: registra o service worker (offline) ----------
