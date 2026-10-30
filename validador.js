@@ -417,7 +417,7 @@ var Validador = (function (D) {
                         mencaoCat[k].some(function (c) { return rec.indexOf(c.cod) >= 0; });
           if (noCombo) p = 3;
           else if (porCat[k].some(function (c) { return CORINGA[c.cod]; })) p = 1.5;
-          else if (porCat[k].length || partes[k] >= 0.6) p = 0.75;
+          else if (porCat[k].length || partes[k] >= 0.6) p = 0.5; // tem a parte, mas não é a carta do objetivo
           else p = 0;
           if (p < 3) faltaCombo.push(D.categorias[k].nome + ': ' + rec.map(function (c) { return POR_COD[c].titulo + ' (' + c + ')'; }).join(' ou '));
         }
@@ -435,7 +435,7 @@ var Validador = (function (D) {
       var acao;
       if (tarefaCombo) acao = 6;
       else if (obj.livre) acao = (famPrincipal || famSecundaria) ? 6 : temTarefa ? 4 : 0;
-      else if (cartaTForaCombo) acao = famPrincipal ? 3 : 1; // carta de Tarefa que não é a do objetivo
+      else if (cartaTForaCombo) acao = famPrincipal ? 2.5 : 0.5; // carta de Tarefa que não é a do objetivo
       else acao = famPrincipal ? 6 : famSecundaria ? 4 : temTarefa ? 2 : 0;
       var faltamTema = ct.faltam.concat(cd.faltam).slice(0, 5);
       objetivo = [
@@ -529,6 +529,12 @@ var Validador = (function (D) {
     var total = criterios.reduce(function (t, c) { return t + c.pts; }, 0);
     var totalMax = criterios.reduce(function (t, c) { return t + c.max; }, 0);
     var nota = 100 * total / totalMax;
+    // o gabarito do objetivo vale 100: a nota é medida em relação a ele
+    var bruta = r1(nota), referencia = null;
+    if (obj && !opcoes._bruto) {
+      referencia = notaBrutaGabarito(obj.cod);
+      if (referencia) nota = Math.min(100, nota * 100 / referencia);
+    }
     if (objetivo) aderencia = r1(100 * criterios.filter(function (c) { return c.id === 'objetivo'; })[0].pts / 30);
 
     // ---------- tetos ----------
@@ -565,9 +571,11 @@ var Validador = (function (D) {
       });
     });
     dicas.sort(function (a, b) { return b.perda - a.perda; });
+    if (nota >= 100) dicas = [];
 
     return {
       nota: nota, faixa: faixa, claro: claro, criterios: criterios, avisos: unicos(avisos), dicas: dicas.slice(0, 4),
+      bruta: bruta, referencia: referencia,
       aderencia: aderencia, comObjetivo: !!obj, objetivo: obj ? { cod: obj.cod, titulo: obj.titulo } : null,
       cartas: usadas.map(function (c) { return { cod: c.cod, titulo: c.titulo, cat: c.cat, pts: c.pts }; }),
       categorias: catsCartas.length
@@ -582,16 +590,26 @@ var Validador = (function (D) {
     }).filter(Boolean).join('\n');
   }
 
-  // gabarito do professor: prompt-modelo de nota máxima do objetivo (frase do tema antes da Tarefa)
-  var cacheGab = {};
+  // gabarito do professor: prompt-modelo de nota máxima do objetivo (frase do tema antes da Tarefa).
+  // A pontuação do gabarito é a referência que vale 100 para aquele objetivo.
+  var cacheGab = {}, cacheBruta = {};
+  function textoGabarito(g) {
+    var linhas = montarPrompt(g.cartas).split('\n'), iT = -1;
+    linhas.forEach(function (l, i) { if (iT < 0 && CARTAS.some(function (c) { return c.cat === 'T' && c.texto === l; })) iT = i; });
+    linhas.splice(iT < 0 ? linhas.length : iT, 0, g.frase);
+    return linhas.join('\n');
+  }
+  function notaBrutaGabarito(cod) {
+    var g = (D.gabaritos || {})[cod];
+    if (!g) return null;
+    if (!(cod in cacheBruta)) cacheBruta[cod] = avaliar(textoGabarito(g), { objetivo: cod, temaProfessor: g.tema, _bruto: true }).nota;
+    return cacheBruta[cod];
+  }
   function gabarito(cod) {
     var g = (D.gabaritos || {})[cod];
     if (!g) return null;
     if (cacheGab[cod]) return cacheGab[cod];
-    var linhas = montarPrompt(g.cartas).split('\n'), iT = -1;
-    linhas.forEach(function (l, i) { if (iT < 0 && CARTAS.some(function (c) { return c.cat === 'T' && c.texto === l; })) iT = i; });
-    linhas.splice(iT < 0 ? linhas.length : iT, 0, g.frase);
-    var texto = linhas.join('\n');
+    var texto = textoGabarito(g);
     var r = avaliar(texto, { objetivo: cod, temaProfessor: g.tema });
     cacheGab[cod] = { cod: cod, cartas: g.cartas, frase: g.frase, tema: g.tema || null, texto: texto, nota: r.nota, faixa: r.faixa, aderencia: r.aderencia };
     return cacheGab[cod];

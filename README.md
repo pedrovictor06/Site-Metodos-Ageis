@@ -38,7 +38,7 @@ Os oito critérios da regra 17:
 - Sem objetivo (avaliação livre), a adequação não é medida e os outros sete critérios são reescalados para 100.
 - Tetos: menos de 5 palavras = máx. 15; sem tarefa = máx. 40; texto sem sentido = máx. 20; duas ou mais contradições = máx. 59.
 - Carta **Gênio dos Prompts (SOR-08)**: +15 na nota final do placar.
-- **Gabaritos** (`PROMPT_AGIL.gabaritos` em `cartas.js`): o prompt-modelo de cada objetivo, com as cartas do combo e uma frase do tema. Todos tiram entre 95 e 98. Aparecem no validador em "Gabarito do professor" (depois de "Mostrar"), e o resultado mostra a nota do gabarito como referência.
+- **Gabaritos** (`PROMPT_AGIL.gabaritos` em `cartas.js`): o prompt-modelo de cada objetivo, com as cartas do combo e uma frase do tema. Com objetivo escolhido, a nota é medida em relação ao gabarito: os pontos dele valem 100 e os outros prompts são proporcionais (máximo 100). Aparecem no validador em "Gabarito do professor" (depois de "Mostrar").
 
 ## Placar e desempate (regras 18 e 19)
 1. Maior nota
@@ -55,4 +55,4 @@ O placar fica salvo no aparelho (localStorage). Registre todos os jogadores no m
 - Feito para prompts em português.
 
 ## Atualizando o app instalado
-Ao alterar qualquer arquivo, troque a versão do cache em `sw.js` (`bons-prompts-v8` para `v9`). Com internet, o app já busca a versão nova sozinho e recarrega uma vez.
+Ao alterar qualquer arquivo, troque a versão do cache em `sw.js` (`bons-prompts-v9` para `v10`). Com internet, o app já busca a versão nova sozinho e recarrega uma vez.

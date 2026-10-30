@@ -196,7 +196,7 @@
     if (box.hidden) { box.open = false; return; }
     $('gabConteudo').innerHTML =
       '<p class="why">' + (o.professor ? 'Exemplo para o tema "' + esc(g.tema) + '". No seu desafio, troque a frase pelo seu tema.' :
-        'Prompt-modelo de nota máxima: as cartas do combo + uma frase com o tema, antes da Tarefa.') + '</p>' +
+        'Prompt-modelo que vale 100: as cartas do combo + uma frase com o tema, antes da Tarefa.') + '</p>' +
       '<div class="degrau-topo"><div class="mini-cartas">' + g.cartas.map(function (cod) { var c = V.porCodigo[cod]; return '<span class="chip ' + CLASSE[c.cat] + '">' + c.cod + ' ' + esc(c.titulo) + '</span>'; }).join('') +
       '<span class="chip tema">+ frase do tema</span></div>' + selo(g) + '</div>' +
       '<p class="frase-gab">“' + esc(g.frase) + '”</p>' +
@@ -266,8 +266,8 @@
     r.avisos.forEach(function (a) { h += '<p class="aviso">⚠ ' + esc(a) + '</p>'; });
     if (!r.comObjetivo) h += '<p class="why">Sem objetivo: a adequação não foi medida e os outros sete critérios foram reescalados para 100.</p>';
     var oG = objAtual(), gab = oG && !oG.professor ? V.gabarito(oG.cod) : null;
-    if (gab) h += '<p class="ref-gab">🔑 Nota do gabarito deste objetivo: <strong>' + fmt(gab.nota) + '</strong>' +
-      (r.nota >= gab.nota ? ' · seu prompt chegou lá!' : ' · faltam ' + fmt(gab.nota - r.nota) + ' pontos para alcançá-lo.') + '</p>';
+    if (gab) h += '<p class="ref-gab">🔑 O gabarito deste objetivo vale <strong>100</strong>' +
+      (r.nota >= 100 ? ' · seu prompt chegou lá!' : ' · faltam ' + fmt(100 - r.nota) + ' pontos para alcançá-lo.') + '</p>';
     if (r.dicas.length) h += '<div class="dicas"><strong>Como subir a nota</strong><ul>' + r.dicas.map(function (d) { return '<li>' + esc(d.texto) + '</li>'; }).join('') + '</ul></div>';
     r.criterios.forEach(function (c) {
       var pct = c.max ? Math.round(100 * c.pts / c.max) : 0;
