@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prompt Ágil – Aprenda e Valide Prompts</title>
+<title>Prompt Ágil – Guia e Validador</title>
+<meta name="description" content="Guia do professor e Aplicativo Validador oficial do jogo Prompt Ágil. Funciona offline.">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b0b0b">
 <link rel="apple-touch-icon" href="imagens/icon-192.png">
@@ -12,7 +13,7 @@
 <body>
 
 <header>
-  <h1>🎯 Aprenda a Fazer Bons Prompts<small>Validador oficial do jogo Prompt Ágil</small></h1>
+  <h1>🎯 Prompt Ágil<small>Guia do jogo e Aplicativo Validador oficial</small></h1>
   <div class="tools" role="group" aria-label="Acessibilidade">
     <button id="aMenos" aria-label="Diminuir letra">A−</button>
     <button id="aMais" aria-label="Aumentar letra">A+</button>
@@ -23,196 +24,113 @@
 <div class="navwrap" id="navwrap">
   <button class="seta" id="setaEsq" aria-label="Ver abas anteriores" hidden>‹</button>
   <nav id="abas" role="tablist" aria-label="Abas do app">
-    <button role="tab" data-go="inicio" aria-selected="true" aria-current="page"><span aria-hidden="true">🏠</span> <span class="rot">Início</span></button>
-    <button role="tab" data-go="oque" aria-selected="false"><span aria-hidden="true">❓</span> <span class="rot">O que é um prompt?</span></button>
+    <button role="tab" data-go="inicio" aria-selected="true" aria-current="page"><span aria-hidden="true">🏠</span> <span class="rot">Resumo</span></button>
     <button role="tab" data-go="exemplos" aria-selected="false"><span aria-hidden="true">💡</span> <span class="rot">Exemplos</span></button>
-    <button role="tab" data-go="bons-ruins" aria-selected="false"><span aria-hidden="true">⚖️</span> <span class="rot">Bons x Ruins</span></button>
-    <button role="tab" data-go="regras" aria-selected="false"><span aria-hidden="true">📜</span> <span class="rot">Regras do jogo</span></button>
+    <button role="tab" data-go="regras" aria-selected="false"><span aria-hidden="true">📜</span> <span class="rot">Regras</span></button>
     <button role="tab" data-go="validador" aria-selected="false"><span aria-hidden="true">✅</span> <span class="rot">Validador</span></button>
-    <button role="tab" data-go="placar" aria-selected="false"><span aria-hidden="true">🏆</span> <span class="rot">Placar</span></button>
   </nav>
   <button class="seta" id="setaDir" aria-label="Ver mais abas" hidden>›</button>
 </div>
 
 <main>
 
-  <!-- INÍCIO -->
+  <!-- RESUMO -->
   <section id="inicio" class="active" aria-labelledby="t-inicio">
     <div class="card hero">
-      <h2 id="t-inicio">Bem-vindo(a)! 👋</h2>
-      <p>Aprenda a conversar melhor com uma IA e dispute o jogo <strong>Prompt Ágil</strong>.<br>
-         Este app funciona <strong>100% offline</strong>, sem internet.</p>
-      <button class="btn" data-go="oque">Começar a aprender</button>
-      <button class="btn secondary" data-go="regras">Regras do jogo</button>
-      <button class="btn secondary" data-go="validador">Ir ao validador</button>
+      <h2 id="t-inicio">Prompt Ágil</h2>
+      <p>Um jogo de tabuleiro para aprender a escrever <strong>prompts</strong>, as instruções que damos a uma IA.
+         Os alunos coletam cartas, montam um prompt e este app dá a nota. Funciona <strong>100% offline</strong>.</p>
+      <button class="btn" data-go="validador">Ir ao validador</button>
+      <button class="btn secondary" data-go="regras">Ler as regras</button>
     </div>
+
     <div class="card">
-      <strong>Trilha de aprendizado</strong>
-      <ol>
-        <li>Entenda o que é um prompt</li>
-        <li>Veja exemplos práticos, com cada parte identificada</li>
-        <li>Compare 3 prompts bons e 3 ruins</li>
-        <li>Leia as regras do jogo Prompt Ágil</li>
-        <li>Escreva o seu prompt e receba uma nota de 0 a 100</li>
-        <li>Registre no placar e veja quem venceu</li>
+      <h3>O jogo em 1 minuto</h3>
+      <ol class="passos-jogo">
+        <li>Cada jogador recebe um <strong>objetivo secreto</strong>, por exemplo "Organizar um festival de música".</li>
+        <li>Os peões andam pelo tabuleiro 9 × 9, uma casa por vez, durante <strong>16 movimentos</strong>.</li>
+        <li>Nas casas dos quadrantes dá para recolher <strong>cartas</strong>: até 8, no máximo 2 de cada tipo.</li>
+        <li>Entrou na <strong>cruz central</strong>? Compre uma carta de <strong>Sorte ou Azar</strong>.</li>
+        <li>No fim, cada um <strong>monta o prompt</strong> com as cartas e avalia aqui. A <strong>maior nota</strong> vence.</li>
       </ol>
     </div>
-  </section>
 
-<!-- O QUE É UM PROMPT -->
-  <section id="oque" aria-labelledby="t-oque">
-    <h2 id="t-oque">O que é um prompt?</h2>
     <div class="card">
-      <p><strong>Prompt é a instrução que você escreve para uma IA.</strong>
-         Quanto mais clara a instrução, melhor a resposta.</p>
-      <p>Um bom prompt costuma ter estas partes (nem todo prompt precisa de todas):</p>
-      <ul>
-        <li><span class="chip persona">Persona</span> – quem a IA deve ser. Ex.: "Atue como um professor de matemática"</li>
-        <li><span class="chip contexto">Contexto</span> – a situação e o assunto. Ex.: "Estou estudando para a prova de álgebra"</li>
-        <li><span class="chip tarefa">Tarefa</span> – o que você quer que a IA faça. Ex.: "Explique…", "Resuma…"</li>
-        <li><span class="chip publico">Público</span> – para quem é a resposta. Ex.: "para um iniciante de 15 anos"</li>
-        <li><span class="chip formato">Formato</span> – como a resposta deve vir. Ex.: "em 5 tópicos", "em tabela"</li>
-        <li><span class="chip tom">Tom e detalhes</span> – estilo, tamanho e limites. Ex.: "linguagem simples", "até 80 palavras"</li>
-      </ul>
+      <h3>Cada quadrante é uma parte do prompt</h3>
+      <div class="tabuleiro" aria-label="Os quatro quadrantes do tabuleiro">
+        <div class="quad persona"><b>👤 Persona</b><span>Quem a IA deve ser</span></div>
+        <div class="quad contexto"><b>📌 Contexto</b><span>Cenário, situação e público</span></div>
+        <div class="quad tarefa"><b>⚙️ Tarefa</b><span>A ação principal</span></div>
+        <div class="quad formato"><b>📋 Formato e Restrições</b><span>Como a resposta deve vir</span></div>
+        <div class="cruz" aria-hidden="true">🍀</div>
+      </div>
     </div>
-    <button class="btn" data-go="exemplos">Ver exemplos →</button>
+
+    <div class="card destaque">
+      <h3>Como tirar nota alta no validador</h3>
+      <ul>
+        <li>Use <strong>uma carta de cada quadrante</strong>, nesta ordem: Persona → Contexto → Tarefa → Formato.</li>
+        <li>Prefira as cartas do <strong>combo recomendado</strong> na sua carta de objetivo.</li>
+        <li>Escreva <strong>uma frase com o tema</strong> do objetivo e diga para quem é a resposta.</li>
+      </ul>
+      <button class="btn secondary" data-go="exemplos">Ver exemplos com nota →</button>
+    </div>
   </section>
 
   <!-- EXEMPLOS -->
   <section id="exemplos" aria-labelledby="t-ex">
-    <h2 id="t-ex">Exemplos práticos</h2>
-    <div class="card">
-      <strong>Como ler os exemplos</strong>
-      <p class="why">Cada prompt foi separado em partes. Cada parte tem uma cor e um nome.</p>
-      <ul class="legenda" aria-label="Legenda das partes">
-        <li><span class="chip persona">Persona</span></li>
-        <li><span class="chip contexto">Contexto</span></li>
-        <li><span class="chip tarefa">Tarefa</span></li>
-        <li><span class="chip publico">Público</span></li>
-        <li><span class="chip formato">Formato</span></li>
-        <li><span class="chip tom">Tom e detalhes</span></li>
-      </ul>
-    </div>
+    <h2 id="t-ex">Exemplos</h2>
+    <p class="why">A nota de cada exemplo é calculada agora pelo próprio validador. Toque em "Testar" para abrir no validador.</p>
 
     <div class="card">
-      <strong>1. Estudar</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Explique o que é uma variável</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">em programação</span></div>
-      <div class="parte publico"><span class="rotulo">Público</span><span class="texto">para um iniciante de 15 anos.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Use uma analogia do dia a dia e um exemplo em Python de no máximo 3 linhas.</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Explique o que é uma variável</mark> <mark class="contexto" title="Contexto">em programação</mark> <mark class="publico" title="Público">para um iniciante de 15 anos.</mark> <mark class="formato" title="Formato">Use uma analogia do dia a dia e um exemplo em Python de no máximo 3 linhas.</mark></p>
+      <h3>No jogo: o mesmo objetivo, três prompts</h3>
+      <p id="exObjetivo"></p>
+      <div id="escada"></div>
     </div>
 
-    <div class="card">
-      <strong>2. Resumir</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Resuma o texto abaixo</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">em 5 tópicos curtos,</span></div>
-      <div class="parte tom"><span class="rotulo">Tom e detalhes</span><span class="texto">em linguagem simples, destacando as datas importantes.</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">[cole o texto aqui]</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Resuma o texto abaixo</mark> <mark class="formato" title="Formato">em 5 tópicos curtos,</mark> <mark class="tom" title="Tom e detalhes">em linguagem simples, destacando as datas importantes.</mark> <mark class="contexto" title="Contexto">[cole o texto aqui]</mark></p>
-    </div>
-
-    <div class="card">
-      <strong>3. Criar um plano</strong>
-      <div class="parte persona"><span class="rotulo">Persona</span><span class="texto">Atue como um professor de matemática.</span></div>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Monte um plano de estudos de 4 semanas</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">para eu revisar álgebra linear, com 1 hora por dia.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Apresente em uma tabela com semana, tema e exercício.</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="persona" title="Persona">Atue como um professor de matemática.</mark> <mark class="tarefa" title="Tarefa">Monte um plano de estudos de 4 semanas</mark> <mark class="contexto" title="Contexto">para eu revisar álgebra linear, com 1 hora por dia.</mark> <mark class="formato" title="Formato">Apresente em uma tabela com semana, tema e exercício.</mark></p>
-    </div>
-
-    <div class="card">
-      <strong>4. Corrigir</strong>
-      <div class="parte tarefa"><span class="rotulo">Tarefa</span><span class="texto">Revise o parágrafo abaixo e corrija erros de português</span></div>
-      <div class="parte tom"><span class="rotulo">Tom e detalhes</span><span class="texto">e mantenha um tom formal.</span></div>
-      <div class="parte formato"><span class="rotulo">Formato</span><span class="texto">Mostre o que foi alterado.</span></div>
-      <div class="parte contexto"><span class="rotulo">Contexto</span><span class="texto">[cole o parágrafo aqui]</span></div>
-      <p class="junto-titulo">Juntando tudo, o aluno escreve:</p>
-      <p class="junto"><mark class="tarefa" title="Tarefa">Revise o parágrafo abaixo e corrija erros de português</mark> <mark class="tom" title="Tom e detalhes">e mantenha um tom formal.</mark> <mark class="formato" title="Formato">Mostre o que foi alterado.</mark> <mark class="contexto" title="Contexto">[cole o parágrafo aqui]</mark></p>
-    </div>
-
-    <button class="btn" data-go="bons-ruins">Comparar bons e ruins →</button>
+    <h3>✅ Prompts bons (fora do jogo)</h3>
+    <div id="exBons"></div>
+    <h3>❌ Prompts ruins</h3>
+    <div id="exRuins"></div>
   </section>
 
-  <!-- BONS X RUINS -->
-  <section id="bons-ruins" aria-labelledby="t-br">
-    <h2 id="t-br">3 prompts bons e 3 ruins</h2>
-
-    <h3>✅ Bons</h3>
-
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Crie 5 perguntas de múltipla escolha sobre a Revolução Francesa para alunos do ensino médio, com gabarito no final. Use linguagem simples e evite pegadinhas.</div>
-      <p class="why">Quantidade, tema, público, formato e restrições definidos.</p>
-    </div>
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Explique como funciona a fotossíntese em um parágrafo de até 80 palavras, para uma criança de 10 anos. Use uma analogia do dia a dia e linguagem simples.</div>
-      <p class="why">Limite de tamanho, público, recurso criativo (analogia) e tom definidos.</p>
-    </div>
-    <div class="card item good">
-      <span class="tag good">✔ Bom</span>
-      <div class="prompt">Estou criando um site de 3 páginas para uma padaria do meu bairro. Sugira uma paleta de 4 cores e explique em uma frase por que cada uma combina com o tema. Evite tons neon.</div>
-      <p class="why">Traz contexto, tarefa, formato de resposta e uma restrição.</p>
-    </div>
-
-    <h3>❌ Ruins</h3>
-
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Fale sobre história.</div>
-      <p class="why">Amplo demais: qual época? Para quem? Qual tamanho?</p>
-    </div>
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Faz isso pra mim.</div>
-      <p class="why">"Isso" não diz nada. A IA não sabe a tarefa.</p>
-    </div>
-    <div class="card item bad">
-      <span class="tag bad">✖ Ruim</span>
-      <div class="prompt">Escreva um texto bom sobre tecnologia.</div>
-      <p class="why">"Bom" é vago e falta contexto, público e tamanho.</p>
-    </div>
-
-    <button class="btn" data-go="validador">Testar o meu prompt →</button>
-  </section>
-
-  
-
-  <!-- REGRAS DO JOGO -->
+  <!-- REGRAS -->
   <section id="regras" aria-labelledby="t-regras">
-    <h2 id="t-regras">Regras do Jogo PROMPT ÁGIL</h2>
+    <h2 id="t-regras">Regras oficiais</h2>
     <ol class="regras">
-      <li><strong>Objetivo.</strong> Criar um prompt estruturado que obtenha uma avaliação superior à dos demais jogadores.</li>
-      <li><strong>Preparação.</strong> As cartas de prompt são distribuídas viradas para cima, formando uma matriz de 8 × 8 casas.</li>
-      <li><strong>Objetivo secreto.</strong> Cada jogador recebe uma carta do Baralho de Objetivos, contendo um objetivo secreto que deverá orientar a construção de seu prompt.</li>
-      <li><strong>Posicionamento inicial.</strong> Em ordem crescente de idade, cada jogador posiciona sua peça em um dos vértices do tabuleiro. Ao iniciar a partida, pode optar por recolher ou não a carta da casa ocupada.</li>
-      <li><strong>Movimentação.</strong> Em cada turno, o jogador pode mover sua peça exatamente uma casa na vertical ou na horizontal, nunca na diagonal.</li>
-      <li><strong>Coleta de cartas.</strong> Ao encerrar seu movimento, o jogador pode optar por recolher a carta da casa ocupada.</li>
-      <li><strong>Limite de cartas.</strong> Cada jogador pode recolher, no máximo, 8 cartas durante a partida.</li>
-      <li><strong>Disputa por cartas.</strong> Dois ou mais jogadores podem ocupar a mesma casa. Entretanto, uma carta só pode ser recolhida uma única vez. Após ser recolhida, ela é removida do jogo.</li>
-      <li><strong>Duração da partida.</strong> Cada jogador realiza 16 movimentos. Ao final desses movimentos, deverá utilizar as cartas recolhidas para construir seu prompt.</li>
-      <li><strong>Montagem do prompt.</strong> Os jogadores podem utilizar todas ou apenas parte das cartas recolhidas, respeitando seu objetivo secreto.</li>
-      <li><strong>Avaliação.</strong> Cada jogador submeterá seu prompt ao Aplicativo Validador, que atribuirá uma nota.</li>
-      <li><strong>Critérios de avaliação.</strong> O Aplicativo Validador avaliará os prompts com base nos seguintes critérios:
-        <ul>
-          <li>Clareza das instruções;</li>
-          <li>Completude das informações fornecidas;</li>
-          <li>Coerência e organização da estrutura;</li>
-          <li>Adequação ao objetivo secreto;</li>
-          <li>Potencial de gerar respostas úteis, precisas e relevantes;</li>
-          <li>Criatividade na combinação das cartas utilizadas.</li>
+      <li><strong>Objetivo do jogo.</strong> Construir o melhor prompt possível com as cartas coletadas na partida e obter a maior pontuação no Aplicativo Validador. Cada jogador recebe um objetivo secreto e deve criar um prompt que o atenda da forma mais clara e completa possível.</li>
+      <li><strong>Componentes.</strong> 1 tabuleiro 9 × 9; 64 cartas de Estrutura de Prompt; 16 cartas de Sorte ou Azar (8 de Sorte e 8 de Azar); 1 Baralho de Objetivos; 4 peões; 1 Aplicativo Validador.</li>
+      <li><strong>Tabuleiro.</strong> A 5ª linha e a 5ª coluna formam uma cruz que divide o tabuleiro em quatro quadrantes, cada um com cartas de uma etapa do prompt:
+        <ul class="quads-lista">
+          <li><span class="chip persona">Persona</span> superior esquerdo: quem executa a tarefa. Ex.: professor universitário, programador experiente.</li>
+          <li><span class="chip contexto">Contexto</span> superior direito: informações, cenário e condições. Ex.: empresa de pequeno porte, alunos do ensino médio.</li>
+          <li><span class="chip tarefa">Tarefa</span> inferior esquerdo: a ação principal. Ex.: criar, analisar, planejar, resumir, comparar.</li>
+          <li><span class="chip formato">Formato e Restrições</span> inferior direito: como a resposta deve vir e seus limites. Ex.: em tabela, em até 300 palavras.</li>
         </ul></li>
-      <li><strong>Vencedor.</strong> O jogador que obtiver a maior nota será declarado vencedor.</li>
-      <li><strong>Critérios de desempate.</strong> Em caso de empate, aplicar os seguintes critérios, nesta ordem:
+      <li><strong>Cruz central.</strong> As casas da cruz não têm cartas de estrutura. A casa central (5,5) tem a pilha das 16 cartas de Sorte ou Azar, embaralhadas e viradas para baixo.</li>
+      <li><strong>Posições iniciais.</strong> Os jogadores começam nos extremos da cruz: Jogador 1 em (5,1), Jogador 2 em (1,5), Jogador 3 em (5,9) e Jogador 4 em (9,5). Com menos de quatro jogadores, usam-se só as posições necessárias.</li>
+      <li><strong>Preparação.</strong> Monte o tabuleiro com as cartas de estrutura em seus quadrantes. Embaralhe o Baralho de Objetivos e entregue uma carta a cada jogador, que a mantém em segredo até o fim. Embaralhe as cartas de Sorte ou Azar e coloque a pilha em (5,5). Posicione os peões.</li>
+      <li><strong>Movimentação.</strong> Joga-se em ordem crescente de idade. No seu turno, o jogador move a peça exatamente uma casa: para cima, para baixo, para a esquerda ou para a direita. Não vale diagonal.</li>
+      <li><strong>Coleta de cartas.</strong> Ao terminar o movimento numa casa com carta de estrutura, o jogador escolhe recolher a carta ou deixá-la. Cartas não recolhidas continuam disponíveis.</li>
+      <li><strong>Limite de cartas.</strong> No máximo 2 de Persona, 2 de Contexto, 2 de Tarefa e 2 de Formato/Restrições: 8 no total. Depois disso, o jogador continua andando, mas não coleta mais.</li>
+      <li><strong>Cartas exclusivas.</strong> Cada carta de estrutura só pode ser recolhida uma vez e sai do tabuleiro.</li>
+      <li><strong>Ocupação de casas.</strong> Dois ou mais jogadores podem ficar na mesma casa, mas só quem recolher primeiro usa a carta.</li>
+      <li><strong>Sorte ou Azar.</strong> Ao entrar em qualquer casa da cruz (linha 5 ou coluna 5), inclusive a central, o jogador compra obrigatoriamente uma carta da pilha e cumpre o efeito na hora. A carta é descartada. Se a pilha acabar, a cruz não tem mais efeitos.</li>
+      <li><strong>Cartas de Sorte.</strong>
+        <details><summary>Ver as 8 cartas de Sorte</summary><ul class="cartas-lista" id="listaSorte"></ul></details></li>
+      <li><strong>Cartas de Azar.</strong>
+        <details><summary>Ver as 8 cartas de Azar</summary><ul class="cartas-lista" id="listaAzar"></ul></details></li>
+      <li><strong>Duração.</strong> Cada jogador faz exatamente 16 movimentos. Quando todos terminam, acaba a exploração do tabuleiro.</li>
+      <li><strong>Construção do prompt.</strong> Cada jogador organiza suas cartas e monta um prompt com elas, buscando atender ao seu objetivo secreto. Pode usar todas ou só parte das cartas.</li>
+      <li><strong>Avaliação.</strong> Cada prompt é submetido ao Aplicativo Validador, que considera: clareza das instruções; organização e estrutura; completude das informações; coerência entre as partes; adequação ao objetivo secreto; qualidade da resposta gerada; criatividade; eficiência na utilização das cartas.</li>
+      <li><strong>Vencedor.</strong> Vence quem tiver a maior pontuação no validador.</li>
+      <li><strong>Desempate.</strong> Nesta ordem:
         <ol>
-          <li>Maior aderência ao objetivo secreto;</li>
-          <li>Menor número de cartas utilizadas;</li>
-          <li>Maior quantidade de movimentos restantes sem coleta de cartas;</li>
-          <li>Persistindo o empate, a vitória será compartilhada.</li>
+          <li>maior aderência ao objetivo secreto;</li>
+          <li>menor quantidade de cartas utilizadas;</li>
+          <li>maior diversidade de categorias utilizadas;</li>
+          <li>maior número de cartas restantes no tabuleiro do seu quadrante inicial;</li>
+          <li>persistindo o empate, a vitória é compartilhada.</li>
         </ol></li>
     </ol>
     <div class="acoes"><button class="btn" data-go="validador">Ir ao validador →</button></div>
@@ -220,29 +138,41 @@
 
   <!-- VALIDADOR -->
   <section id="validador" aria-labelledby="t-val">
-    <h2 id="t-val">Validador de prompt</h2>
+    <h2 id="t-val">Validador</h2>
     <div class="card">
-      <label class="check" for="modoJogo" style="margin-top:0"><input type="checkbox" id="modoJogo"> Modo jogo Prompt Ágil (nota oficial + placar)</label>
+      <label for="objetivo">Objetivo secreto</label>
+      <div class="campoobj">
+        <select id="objetivo"></select>
+        <button type="button" class="btn secondary pequeno" id="verObj" aria-pressed="false">Mostrar</button>
+      </div>
+      <p class="why" id="objInfo"></p>
+      <div id="temaProf" hidden>
+        <label for="temaTexto">Tema do desafio do professor</label>
+        <input type="text" id="temaTexto" maxlength="160" autocomplete="off" placeholder="ex.: criar um jornal da escola sobre reciclagem">
+      </div>
 
+      <details class="montar" id="montar">
+        <summary>🃏 Montar o prompt com as suas cartas</summary>
+        <p class="why">Toque nas cartas que você coletou e depois em "Colocar no prompt". O texto entra na ordem do tabuleiro e você pode editar.</p>
+        <div id="grade"></div>
+        <div class="acoes">
+          <button type="button" class="btn" id="colocar">Colocar no prompt</button>
+          <button type="button" class="btn secondary" id="desmarcar">Desmarcar todas</button>
+        </div>
+      </details>
+
+      <label for="entrada">Seu prompt</label>
+      <textarea id="entrada" placeholder="Escreva aqui o prompt montado com as cartas."></textarea>
+
+      <label class="check" for="modoJogo"><input type="checkbox" id="modoJogo"> Partida: registrar no placar</label>
       <div id="camposJogo" hidden>
         <label for="nome">Nome do jogador</label>
         <input type="text" id="nome" maxlength="30" autocomplete="off" placeholder="ex.: Pedro">
-        <div class="linha">
-          <div><label for="cartas">Cartas utilizadas no prompt (1 a 8)</label>
-            <input type="number" id="cartas" min="1" max="8" step="1" inputmode="numeric"></div>
-          <div><label for="mov">Movimentos restantes sem coleta (0 a 16)</label>
-            <input type="number" id="mov" min="0" max="16" step="1" inputmode="numeric"></div>
-        </div>
+        <label for="restantes">Cartas restantes no tabuleiro do seu quadrante inicial (0 a 16)</label>
+        <input type="number" id="restantes" min="0" max="16" step="1" inputmode="numeric">
+        <label class="check" for="genio"><input type="checkbox" id="genio"> Tenho a carta Gênio dos Prompts (SOR-08): +15 na nota</label>
       </div>
 
-      <label for="objetivo">Objetivo secreto <span class="why" id="objDica">(opcional no modo livre; usado para medir a aderência)</span></label>
-      <div class="campoobj">
-        <input type="password" id="objetivo" autocomplete="off" placeholder="ex.: criar um plano de estudos para a prova">
-        <button type="button" class="btn secondary pequeno" id="verObj" aria-pressed="false">Mostrar</button>
-      </div>
-
-      <label for="entrada">Seu prompt</label>
-      <textarea id="entrada" placeholder="Escreva aqui o prompt que você montou com as cartas."></textarea>
       <div class="acoes">
         <button class="btn" id="validar">Avaliar</button>
         <button class="btn secondary" id="limpar">Limpar</button>
@@ -250,46 +180,44 @@
       <div id="resultado" aria-live="polite"></div>
     </div>
 
+    <div class="card" id="placar">
+      <h3>🏆 Placar da partida</h3>
+      <div id="bannerPlacar"></div>
+      <div id="tabelaPlacar" class="tabela"></div>
+      <p class="why">Desempate (regra 19): maior aderência ao objetivo, menos cartas usadas, mais categorias, mais cartas restantes no quadrante inicial. Persistindo, vitória compartilhada. O placar fica salvo neste aparelho.</p>
+      <div class="acoes"><button class="btn secondary" id="limparPlacar">Limpar placar</button></div>
+    </div>
+
     <div class="card">
       <details>
-        <summary>Como a nota é calculada (clique para ver)</summary>
-        <p class="why">A nota vai de 0 a 100 e é calculada no seu dispositivo, por regras fixas. O mesmo prompt sempre recebe a mesma nota. Nada é enviado pela internet.</p>
+        <summary>Como a nota é calculada</summary>
+        <p class="why">Nota de 0 a 100, calculada no aparelho por regras fixas: o mesmo prompt sempre recebe a mesma nota. Os oito critérios são os da regra 17.</p>
         <div class="tabela"><table>
-          <tr><th>Critério (regra 12)</th><th>Pontos</th><th>O que é medido</th></tr>
-          <tr><td>Clareza das instruções</td><td>20</td><td>Verbo de ação, objeto da tarefa, ausência de termos vagos, frases de tamanho adequado</td></tr>
-          <tr><td>Completude das informações</td><td>20</td><td>Tarefa, contexto, persona, público, formato e restrições presentes</td></tr>
-          <tr><td>Coerência e organização</td><td>15</td><td>Ordem lógica, separação visual, ausência de contradições e de repetição</td></tr>
-          <tr><td>Adequação ao objetivo secreto</td><td>20</td><td>Cobertura dos temas do objetivo, ação pedida e foco do prompt</td></tr>
-          <tr><td>Potencial de resposta útil</td><td>15</td><td>Quantidades, critérios de qualidade, limites, tratamento de incerteza, densidade de informação</td></tr>
-          <tr><td>Criatividade na combinação</td><td>10</td><td>Variedade de componentes combinados, recursos criativos, diversidade de vocabulário</td></tr>
+          <tr><th>Critério</th><th>Pontos</th><th>O que é medido</th></tr>
+          <tr><td>Clareza das instruções</td><td>13</td><td>Verbo de ação, o que deve ser feito, palavras vagas, tamanho das frases</td></tr>
+          <tr><td>Organização e estrutura</td><td>8</td><td>Ordem Persona → Contexto → Tarefa → Formato, partes separadas, tamanho</td></tr>
+          <tr><td>Completude das informações</td><td>13</td><td>As quatro partes presentes</td></tr>
+          <tr><td>Coerência entre as partes</td><td>9</td><td>Sem contradições, cartas que combinam, sem repetição</td></tr>
+          <tr><td>Adequação ao objetivo secreto</td><td>30</td><td>Cartas do combo recomendado, tema do objetivo no texto, ação pedida</td></tr>
+          <tr><td>Qualidade da resposta esperada</td><td>9</td><td>Números e limites, pedido de profundidade, público, cuidados</td></tr>
+          <tr><td>Criatividade</td><td>9</td><td>Combinação das partes, recursos criativos, vocabulário</td></tr>
+          <tr><td>Eficiência no uso das cartas</td><td>9</td><td>Cartas que somam ao objetivo, categorias por carta, força das cartas</td></tr>
         </table></div>
-        <p class="why">Sem objetivo informado (modo livre), a adequação não é medida e os outros cinco critérios são reescalados para 100.
-          Limites: prompt com menos de 5 palavras tem teto de 15; sem tarefa identificável, teto de 40; texto sem sentido, teto de 20.
-          Para ser considerado claro, o prompt precisa de nota mínima 60 e de pelo menos 60% dos pontos de clareza.</p>
-        <p class="why">O validador é um conjunto de regras, não uma IA: avalia estrutura e vocabulário e pode errar em casos incomuns. Em caso de dúvida, quem organiza o jogo decide.</p>
+        <p class="why">Sem objetivo (avaliação livre), a adequação não é medida e os outros sete critérios são reescalados para 100. Limites: menos de 5 palavras, nota máxima 15; sem tarefa, 40; texto sem sentido, 20; duas ou mais contradições, 59.</p>
+        <p class="why">As cartas são reconhecidas pelo texto delas no prompt. Se você adaptou o texto, marque a carta em "Montar o prompt com as suas cartas" para ela ser contada.</p>
+        <p class="why">O validador é um conjunto de regras, não uma IA: avalia estrutura e vocabulário e pode errar em casos incomuns. Em caso de dúvida, o professor decide.</p>
       </details>
     </div>
-  </section>
-
-  <!-- PLACAR -->
-  <section id="placar" aria-labelledby="t-placar">
-    <h2 id="t-placar">Placar</h2>
-    <p class="why">Os resultados ficam guardados neste aparelho. Para uma partida com vários jogadores, registre todos no mesmo aparelho. O objetivo secreto e o texto do prompt não são guardados.</p>
-    <div id="bannerPlacar"></div>
-    <div id="tabelaPlacar" class="tabela"></div>
-    <div class="acoes">
-      <button class="btn secondary" id="limparPlacar">Limpar placar</button>
-      <button class="btn" data-go="validador">Avaliar outro jogador</button>
-    </div>
-    <p class="why">Desempate, nesta ordem: maior nota, maior aderência ao objetivo secreto, menor número de cartas utilizadas, maior número de movimentos restantes sem coleta. Persistindo o empate, a vitória é compartilhada.</p>
   </section>
 
   <div id="passos" class="passos" role="group" aria-label="Ir para outra aba"></div>
 
 </main>
 
-<footer>Prompt Ágil · app de ensino de prompts · funciona offline</footer>
+<footer>Prompt Ágil · guia do professor e validador · funciona offline</footer>
 
+<script src="cartas.js"></script>
+<script src="validador.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
