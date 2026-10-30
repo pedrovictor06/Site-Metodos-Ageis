@@ -54,4 +54,4 @@ O placar fica salvo no aparelho (localStorage). Registre todos os jogadores no m
 - Feito para prompts em português.
 
 ## Atualizando o app instalado
-Ao alterar qualquer arquivo, troque a versão do cache em `sw.js` (`bons-prompts-v6` para `v7`), senão o celular continua mostrando a versão antiga.
+Ao alterar qualquer arquivo, troque a versão do cache em `sw.js` (`bons-prompts-v7` para `v8`). Com internet, o app já busca a versão nova sozinho e recarrega uma vez.

@@ -360,7 +360,17 @@
 
   // ---------- início ----------
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+    // quando sai uma versão nova do app, recarrega uma vez para mostrá-la (só se já havia uma versão antiga ativa)
+    var tinhaVersao = !!navigator.serviceWorker.controller, recarregou = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!tinhaVersao || recarregou) return;
+      recarregou = true; location.reload();
+    });
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+        .then(function (reg) { reg.update(); })
+        .catch(function () {});
+    });
   }
   preencherObjetivos(); atualizaObjetivo(); desenharGrade(); desenharExemplos(); desenharPlacar();
   ir(abaDoHash(), true, true);
