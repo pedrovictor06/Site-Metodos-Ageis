@@ -146,6 +146,10 @@
         <button type="button" class="btn secondary pequeno" id="verObj" aria-pressed="false">Mostrar</button>
       </div>
       <p class="why" id="objInfo"></p>
+      <details class="gabarito" id="gabProf" hidden>
+        <summary>🔑 Gabarito do professor</summary>
+        <div id="gabConteudo"></div>
+      </details>
       <div id="temaProf" hidden>
         <label for="temaTexto">Tema do desafio do professor</label>
         <input type="text" id="temaTexto" maxlength="160" autocomplete="off" placeholder="ex.: criar um jornal da escola sobre reciclagem">
@@ -203,6 +207,7 @@
           <tr><td>Criatividade</td><td>9</td><td>Combinação das partes, recursos criativos, vocabulário</td></tr>
           <tr><td>Eficiência no uso das cartas</td><td>9</td><td>Cartas que somam ao objetivo, categorias por carta, força das cartas</td></tr>
         </table></div>
+        <p class="why">Cada objetivo tem um gabarito: o prompt-modelo feito com as cartas do combo e uma frase com o tema, que tira entre 95 e 98. Ele aparece em "Gabarito do professor" depois de tocar em "Mostrar".</p>
         <p class="why">Sem objetivo (avaliação livre), a adequação não é medida e os outros sete critérios são reescalados para 100. Limites: menos de 5 palavras, nota máxima 15; sem tarefa, 40; texto sem sentido, 20; duas ou mais contradições, 59.</p>
         <p class="why">As cartas são reconhecidas pelo texto delas no prompt. Se você adaptou o texto, marque a carta em "Montar o prompt com as suas cartas" para ela ser contada.</p>
         <p class="why">O validador é um conjunto de regras, não uma IA: avalia estrutura e vocabulário e pode errar em casos incomuns. Em caso de dúvida, o professor decide.</p>

@@ -582,8 +582,23 @@ var Validador = (function (D) {
     }).filter(Boolean).join('\n');
   }
 
+  // gabarito do professor: prompt-modelo de nota máxima do objetivo (frase do tema antes da Tarefa)
+  var cacheGab = {};
+  function gabarito(cod) {
+    var g = (D.gabaritos || {})[cod];
+    if (!g) return null;
+    if (cacheGab[cod]) return cacheGab[cod];
+    var linhas = montarPrompt(g.cartas).split('\n'), iT = -1;
+    linhas.forEach(function (l, i) { if (iT < 0 && CARTAS.some(function (c) { return c.cat === 'T' && c.texto === l; })) iT = i; });
+    linhas.splice(iT < 0 ? linhas.length : iT, 0, g.frase);
+    var texto = linhas.join('\n');
+    var r = avaliar(texto, { objetivo: cod, temaProfessor: g.tema });
+    cacheGab[cod] = { cod: cod, cartas: g.cartas, frase: g.frase, tema: g.tema || null, texto: texto, nota: r.nota, faixa: r.faixa, aderencia: r.aderencia };
+    return cacheGab[cod];
+  }
+
   return {
-    avaliar: avaliar, detectarCartas: detectarCartas, montarPrompt: montarPrompt,
+    avaliar: avaliar, detectarCartas: detectarCartas, montarPrompt: montarPrompt, gabarito: gabarito,
     cartas: CARTAS, porCodigo: POR_COD, objetivos: D.objetivos, pesos: PESOS, _interno: { classificar: classificar, frasesDe: frasesDe, norm: norm }
   };
 })(typeof PROMPT_AGIL !== 'undefined' ? PROMPT_AGIL : require('./cartas.js'));

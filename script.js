@@ -101,7 +101,7 @@
   //  Exemplos (nota calculada na hora pelo validador)
   // =====================================================================
   var EX_OBJ = 'OBJ-13';
-  var EX_TEMA = 'O objetivo é criar um videogame educativo em que aprender as matérias da escola faz o herói evoluir, para alunos do 8º ano.';
+  var EX_TEMA = D.gabaritos[EX_OBJ].frase; // o 3º exemplo é o gabarito do objetivo
   var EXEMPLOS = {
     jogo: [
       { id: 'j1', titulo: 'Cartas fora do combo', cartas: ['PER-05', 'CTX-13', 'TAR-09', 'FMT-06'],
@@ -186,8 +186,33 @@
     $('temaProf').hidden = !(o && o.professor);
     $('objInfo').innerHTML = !o ? 'Sem objetivo, o validador avalia só a qualidade do prompt.' :
       mostrarNomes ? '<strong>' + esc(o.titulo) + '</strong> · Combo: ' + esc(o.comboTexto) + '.' :
-      'Objetivo escolhido. Toque em "Mostrar" para ver o título e o combo.';
+      'Objetivo escolhido. Toque em "Mostrar" para ver o título, o combo e o gabarito.';
+    desenharGabarito(o);
   }
+  // gabarito do professor: só aparece com os nomes revelados
+  function desenharGabarito(o) {
+    var g = o ? V.gabarito(o.cod) : null, box = $('gabProf');
+    box.hidden = !(g && mostrarNomes);
+    if (box.hidden) { box.open = false; return; }
+    $('gabConteudo').innerHTML =
+      '<p class="why">' + (o.professor ? 'Exemplo para o tema "' + esc(g.tema) + '". No seu desafio, troque a frase pelo seu tema.' :
+        'Prompt-modelo de nota máxima: as cartas do combo + uma frase com o tema, antes da Tarefa.') + '</p>' +
+      '<div class="degrau-topo"><div class="mini-cartas">' + g.cartas.map(function (cod) { var c = V.porCodigo[cod]; return '<span class="chip ' + CLASSE[c.cat] + '">' + c.cod + ' ' + esc(c.titulo) + '</span>'; }).join('') +
+      '<span class="chip tema">+ frase do tema</span></div>' + selo(g) + '</div>' +
+      '<p class="frase-gab">“' + esc(g.frase) + '”</p>' +
+      '<details><summary>Ver o prompt completo</summary><p class="junto">' + promptColorido(g.texto) + '</p></details>' +
+      '<button type="button" class="btn secondary pequeno" id="testarGab">Testar o gabarito no validador</button>';
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.id !== 'testarGab') return;
+    var o = objAtual(), g = o && V.gabarito(o.cod); if (!g) return;
+    if ($('entrada').value.trim() && !window.confirm('Trocar o texto atual pelo gabarito?')) return;
+    if (g.tema) $('temaTexto').value = g.tema;
+    marcadas = []; desenharGrade();
+    $('entrada').value = g.texto;
+    avaliarAgora();
+    $('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
   $('objetivo').onchange = atualizaObjetivo;
   $('verObj').onclick = function () {
     mostrarNomes = !mostrarNomes;
@@ -240,6 +265,9 @@
         : '<span class="why">nenhuma carta do jogo no texto' + (r.comObjetivo ? '. Monte com as cartas ou marque as que você adaptou.' : '.') + '</span>') + '</div>';
     r.avisos.forEach(function (a) { h += '<p class="aviso">⚠ ' + esc(a) + '</p>'; });
     if (!r.comObjetivo) h += '<p class="why">Sem objetivo: a adequação não foi medida e os outros sete critérios foram reescalados para 100.</p>';
+    var oG = objAtual(), gab = oG && !oG.professor ? V.gabarito(oG.cod) : null;
+    if (gab) h += '<p class="ref-gab">🔑 Nota do gabarito deste objetivo: <strong>' + fmt(gab.nota) + '</strong>' +
+      (r.nota >= gab.nota ? ' · seu prompt chegou lá!' : ' · faltam ' + fmt(gab.nota - r.nota) + ' pontos para alcançá-lo.') + '</p>';
     if (r.dicas.length) h += '<div class="dicas"><strong>Como subir a nota</strong><ul>' + r.dicas.map(function (d) { return '<li>' + esc(d.texto) + '</li>'; }).join('') + '</ul></div>';
     r.criterios.forEach(function (c) {
       var pct = c.max ? Math.round(100 * c.pts / c.max) : 0;

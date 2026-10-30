@@ -224,4 +224,35 @@ var PROMPT_AGIL = {
     ['AZA-08', 'Ghost 👻', 'Deixe 1 das suas cartas de Estrutura aberta na mesa até o fim do jogo.']
   ]
 };
+
+// Gabaritos (só para o professor): o prompt-modelo de nota máxima de cada objetivo.
+// Cartas do combo na ordem do tabuleiro + uma frase do jogador com o tema, que entra antes da Tarefa.
+// No Desafio do Professor (OBJ-M) é só um exemplo, com o tema em "tema".
+PROMPT_AGIL.gabaritos = {
+  'OBJ-01': { cartas: ['PER-04', 'CTX-09', 'TAR-01', 'FMT-05'], frase: 'O objetivo é criar o melhor canal do YouTube educacional, que ensine temas da escola de um jeito viciante para alunos do 9º ano, sem informações erradas.' },
+  'OBJ-02': { cartas: ['PER-16', 'CTX-08', 'TAR-06', 'FMT-04'], frase: 'O objetivo é planejar um campeonato de eSports da escola, com regras claras, chaves e transmissão ao vivo, para 16 equipes de alunos do ensino médio, com respeito e fair play.' },
+  'OBJ-03': { cartas: ['PER-03', 'CTX-05', 'TAR-07', 'FMT-12'], frase: 'O objetivo é organizar uma feira de ciências interativa que surpreenda alunos, professores e visitantes, com 20 projetos de turmas do ensino fundamental e regras de segurança.' },
+  'OBJ-04': { cartas: ['PER-08', 'CTX-01', 'TAR-01', 'FMT-05'], frase: 'O objetivo é criar um aplicativo para estudantes que ajude adolescentes a estudar melhor, organizar tarefas e tirar dúvidas, com segurança e privacidade dos dados.' },
+  'OBJ-05': { cartas: ['PER-13', 'CTX-14', 'TAR-04', 'FMT-12'], frase: 'O objetivo é desenvolver um robô ajudante que auxilie pessoas em tarefas difíceis ou científicas, explicado para alunos do ensino médio, com cuidados de segurança.' },
+  'OBJ-06': { cartas: ['PER-07', 'CTX-03', 'TAR-06', 'FMT-04'], frase: 'O objetivo é planejar uma viagem para Marte: uma expedição segura de jovens cientistas rumo ao Planeta Vermelho, explicada para alunos do 9º ano.' },
+  'OBJ-07': { cartas: ['PER-10', 'CTX-11', 'TAR-01', 'FMT-02'], frase: 'O objetivo é criar um parque de diversões futurista, com gravidade zero, hologramas e muita adrenalina, pensado para adolescentes e com regras de segurança.' },
+  'OBJ-08': { cartas: ['PER-05', 'CTX-01', 'TAR-06', 'FMT-01'], frase: 'O objetivo é montar uma equipe campeã de futebol, com treino, tática e mentalidade vencedora para o time da escola, formado por alunos de 14 anos, sempre com respeito.' },
+  'OBJ-09': { cartas: ['PER-01', 'CTX-01', 'TAR-15', 'FMT-03'], frase: 'O objetivo é elaborar uma campanha contra o bullying, empática e viral, que promova respeito e acolhimento na escola para alunos do 6º ao 9º ano.' },
+  'OBJ-10': { cartas: ['PER-08', 'CTX-09', 'TAR-16', 'FMT-05'], frase: 'O objetivo é criar uma rede social segura e divertida para adolescentes, livre de toxicidade e golpes, com regras claras de privacidade.' },
+  'OBJ-11': { cartas: ['PER-03', 'CTX-12', 'TAR-05', 'FMT-04'], frase: 'O objetivo é resolver um problema ambiental com uma solução prática, criativa e tecnológica contra a poluição e o desperdício na cidade, lançada como desafio para alunos do ensino médio e sem custos altos.' },
+  'OBJ-12': { cartas: ['PER-11', 'CTX-04', 'TAR-07', 'FMT-04'], frase: 'O objetivo é organizar um festival de música para jovens, com line-up, estrutura de palco e divulgação, para 500 alunos da escola e com regras de segurança.' },
+  'OBJ-13': { cartas: ['PER-02', 'CTX-08', 'TAR-01', 'FMT-13'], frase: 'O objetivo é criar um videogame educativo em que aprender as matérias da escola faz o herói evoluir, para alunos do 8º ano.' },
+  'OBJ-14': { cartas: ['PER-07', 'CTX-02', 'TAR-01', 'FMT-02'], frase: 'O objetivo é escrever uma aventura de ficção científica, uma narrativa eletrizante cheia de mistério tecnológico e reviravoltas, para leitores do 8º ano e sem violência.' },
+  'OBJ-15': { cartas: ['PER-06', 'CTX-06', 'TAR-05', 'FMT-12'], frase: 'O objetivo é sobreviver em uma ilha misteriosa com um plano inteligente de abrigo, alimentação, investigação e resgate para um grupo de 4 jovens, com segurança em primeiro lugar.' },
+  'OBJ-16': { cartas: ['PER-13', 'CTX-12', 'TAR-16', 'FMT-04'], frase: 'O objetivo é construir uma cidade sustentável, limpa, tecnológica e ecológica, onde jovens e natureza vivam em equilíbrio, com ideias inovadoras para alunos do ensino médio e sem custos impossíveis.' },
+  'OBJ-17': { cartas: ['PER-11', 'CTX-13', 'TAR-06', 'FMT-10'], frase: 'O objetivo é planejar um acampamento de verão com gincanas, culinária, mistérios noturnos e esportes para 40 adolescentes, com cuidados de segurança.' },
+  'OBJ-18': { cartas: ['PER-03', 'CTX-10', 'TAR-05', 'FMT-12'], frase: 'O objetivo é elaborar um plano para salvar espécies ameaçadas: monitorar, proteger e recuperar animais em risco de extinção, explicado para alunos do 7º ano.' },
+  'OBJ-19': { cartas: ['PER-07', 'CTX-03', 'TAR-07', 'FMT-04'], frase: 'O objetivo é organizar uma missão espacial com o lançamento, a tripulação, os equipamentos e a pesquisa, para uma turma de jovens cientistas e com segurança da tripulação.' },
+  'OBJ-20': { cartas: ['PER-08', 'CTX-12', 'TAR-01', 'FMT-01'], frase: 'O objetivo é criar uma startup inovadora de tecnologia que resolva uma dor real do dia a dia dos estudantes com baixo custo, apresentada para jovens empreendedores.' },
+  'OBJ-21': { cartas: ['PER-04', 'CTX-07', 'TAR-14', 'FMT-11'], frase: 'O objetivo é desenvolver uma escola do futuro que una games, laboratórios criativos, inteligência artificial e projetos reais, pensada para alunos do ensino médio.' },
+  'OBJ-22': { cartas: ['PER-15', 'CTX-14', 'TAR-16', 'FMT-15'], frase: 'O objetivo é construir um assistente de IA para adolescentes: um tutor virtual ético, seguro e divertido que apoie os estudos e a criatividade.' },
+  'OBJ-23': { cartas: ['PER-01', 'CTX-09', 'TAR-15', 'FMT-14'], frase: 'O objetivo é criar uma campanha para incentivar a leitura, conectando livros a games, cinema e redes sociais, para alunos do 8º ano.' },
+  'OBJ-24': { cartas: ['PER-15', 'CTX-16', 'TAR-05', 'FMT-12'], frase: 'O desafio complexo é resolver uma crise global: um apagão de energia que deixou várias cidades sem internet, com um plano para jovens voluntários e cuidados de segurança.' },
+  'OBJ-M': { cartas: ['PER-03', 'CTX-05', 'TAR-07', 'FMT-12'], frase: 'O tema é organizar uma campanha de reciclagem na escola, apresentada na feira de ciências para alunos do 6º ano, com metas simples, criativas e seguras.', tema: 'organizar uma campanha de reciclagem na escola' }
+};
 if (typeof module !== 'undefined') module.exports = PROMPT_AGIL;
