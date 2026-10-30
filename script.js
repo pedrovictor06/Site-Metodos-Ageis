@@ -266,8 +266,14 @@
     r.avisos.forEach(function (a) { h += '<p class="aviso">⚠ ' + esc(a) + '</p>'; });
     if (!r.comObjetivo) h += '<p class="why">Sem objetivo: a adequação não foi medida e os outros sete critérios foram reescalados para 100.</p>';
     var oG = objAtual(), gab = oG && !oG.professor ? V.gabarito(oG.cod) : null;
-    if (gab) h += '<p class="ref-gab">🔑 O gabarito deste objetivo vale <strong>100</strong>' +
-      (r.nota >= 100 ? ' · seu prompt chegou lá!' : ' · faltam ' + fmt(100 - r.nota) + ' pontos para alcançá-lo.') + '</p>';
+    if (gab) {
+      var codsR = r.cartas.map(function (c) { return c.cod; });
+      var temCartasGab = gab.cartas.every(function (c) { return codsR.indexOf(c) >= 0; });
+      h += '<p class="ref-gab">🔑 O gabarito deste objetivo vale <strong>100</strong>' +
+        (r.nota >= 100 ? ' · seu prompt chegou lá!' : ' · faltam ' + fmt(100 - r.nota) + ' pontos para alcançá-lo.') + '</p>';
+      // tem as cartas do gabarito, mas não a frase: é a frase do tema que falta
+      if (r.nota < 100 && temCartasGab && r.aderencia < 100) h += '<p class="falta-frase">✏️ Você já tem as 4 cartas do gabarito. O que falta é a <strong>frase com o tema do objetivo</strong> (o que deve ser feito e para quem), entre o Contexto e a Tarefa.</p>';
+    }
     if (r.dicas.length) h += '<div class="dicas"><strong>Como subir a nota</strong><ul>' + r.dicas.map(function (d) { return '<li>' + esc(d.texto) + '</li>'; }).join('') + '</ul></div>';
     r.criterios.forEach(function (c) {
       var pct = c.max ? Math.round(100 * c.pts / c.max) : 0;

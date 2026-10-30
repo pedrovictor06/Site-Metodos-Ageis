@@ -2,7 +2,7 @@
 // Estratégia "rede primeiro": com internet, sempre mostra a versão mais nova do site
 // (e atualiza a cópia guardada); sem internet ou com rede muito lenta, usa a cópia guardada.
 // Se alterar algum arquivo, mude a versão abaixo para renovar o cache.
-const CACHE = 'bons-prompts-v9';
+const CACHE = 'bons-prompts-v10';
 const ARQUIVOS = [
   './',
   './index.html',
